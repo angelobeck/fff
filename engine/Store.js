@@ -20,7 +20,7 @@ class Store {
 
         for (let index = 0; index < this.#cache.length; index++) {
             const register = this.#cache[index];
-            if (this.#where(register, where)) {
+            if (this.#where(register, query.where)) {
                 counter++;
                 if (counter > offset) {
                     result.push(register);
@@ -36,11 +36,11 @@ class Store {
     #where(register, where) {
         for (let name in where) {
             const value = where[name];
-            if (!register[name] || register[name] !== value) {
+            if (register[name] === undefined || register[name] === null || register[name] !== value) {
                 return false;
             }
         }
-        return false;
+        return true;
     }
 
     #sort_by(result, sort_by, direction) {
@@ -76,6 +76,20 @@ class Store {
             }
         }
         return {};
+    }
+
+    childrenNames(parentName) {
+        var names = [];
+        var children = this.query({
+            where: { parentName: parentName }
+        });
+        for(let i = 0; i < children.length; i++) {
+            let data = children[i];
+            if(data.name) {
+                names.push(data.name);
+            }
+        }
+        return names;
     }
 
 }

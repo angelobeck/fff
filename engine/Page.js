@@ -1,14 +1,30 @@
 
 class Page {
     application;
-    modules = {
-        title: TemplateLayout
-    }
+    layout;
+
     refresh() {
+        this.modules = {
+            content: TemplateContent,
+            description: TemplateDescription,
+            linked: TemplateLinked,
+            list: TemplateList,
+            menu: TemplateMenu,
+            title: TemplateTitle
+        };
+    
         this.application.dispatch(this);
-        document.getElementById("layout").innerHTML = this.application.data.title;
-        var template = new TemplateMenu(this);
-        template.render(document.getElementById("layout"));
+
+        if (!this.layout) {
+            this.layout = new TemplateLayout(this);
+            this.layout.render(document.getElementById("layout"));
+        } else {
+            this.layout.refresh();
+        }
+    }
+
+    url(path) {
+        return "#" + path.join("/");
     }
 
 }

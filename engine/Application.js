@@ -40,7 +40,7 @@ class Application {
         for (let i = 0; i < this.#helper.map.length; i++) {
             var helper = this.#helper.map[i];
             let names = helper.childrenNames(this);
-            for (n = 0; n < names.length; n++) {
+            for (let n = 0; n < names.length; n++) {
                 let name = names[n];
                 if (helper.isChild(this, name)) {
                     this.#childrenByName[name] = new Application(this, name, helper);

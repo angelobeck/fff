@@ -7,6 +7,7 @@ function startup() {
     root = new Application(false, "-root", App_root);
     page = new Page();
     store.controls = new Store(data.controls);
+    store.domainContent = new Store(data.domainContent);
     window.addEventListener("hashchange", route);
     route();
 }
