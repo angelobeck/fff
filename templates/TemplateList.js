@@ -12,13 +12,13 @@ class TemplateList extends Template {
     </div>`;
 
     get iterableList(){
-        var children = this.page.application.children;
+        var children = application.children;
         if(children.length === 0) {
             return [];
         }
         return children.map((child) => {
             return {
-                url: this.page.url(child.path),
+                url: page.url(child.path),
                 title: child.data.title,
                 description: child.data.description
             };

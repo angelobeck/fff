@@ -1,6 +1,7 @@
 
 var root;
 var page;
+var application;
 var store = {};
 
 function startup() {

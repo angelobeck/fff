@@ -12,5 +12,10 @@ menu_hidden: true,
         name: "-index",
         title: "Checklist de acessibilidade",
         description: "Este é um pequeno manual de referência sobre acessibilidade."
+    },
+    {
+        name: "-chess-clock",
+        title: "Relógio para xadrez",
+        description: "Um simples relógio para contar o tempo de partidas de xadrez."
     }
 ];

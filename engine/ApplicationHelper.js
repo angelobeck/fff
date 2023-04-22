@@ -12,7 +12,7 @@ class ApplicationHelper {
     static constructorHelper(me) {
 
     }
-    static dispatch(page) {
+    static dispatch() {
 
     }
 }

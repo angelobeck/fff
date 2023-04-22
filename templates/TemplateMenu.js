@@ -8,14 +8,14 @@ class TemplateMenu extends Template {
         var result = [];
         var children = root.children;
         for (let i = 0; i < children.length; i++) {
-            let application = children[i];
-            if(application.data.menu_hidden) {
+            let currentApplication = children[i];
+            if(currentApplication.data.menu_hidden) {
                 continue;
             }
             result.push({
-                current: this.page.application.path == application.path ? "page" : "false",
-                label: application.data.title,
-                url: this.page.url(application.path)
+                current: currentApplication.path == application.path ? "page" : "false",
+                label: currentApplication.data.title,
+                url: page.url(currentApplication.path)
             });
         }
         return result;

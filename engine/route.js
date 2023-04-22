@@ -1,11 +1,10 @@
 
 function route() {
     var path = getCurrentPath();
-    var application = routeSublevel(path, root);
+    application = routeSublevel(path, root);
     if (!application) {
         application = root.child("-default");
     }
-    page.application = application;
     page.refresh();
 }
 

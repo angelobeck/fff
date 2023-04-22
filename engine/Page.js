@@ -1,25 +1,26 @@
 
 class Page {
-    application;
-    layout;
+    rootNode;
 
     refresh() {
         this.modules = {
             content: TemplateContent,
             description: TemplateDescription,
+            layout: TemplateLayout,
             linked: TemplateLinked,
             list: TemplateList,
             menu: TemplateMenu,
             title: TemplateTitle
         };
     
-        this.application.dispatch(this);
+        application.dispatch();
 
-        if (!this.layout) {
-            this.layout = new TemplateLayout(this);
-            this.layout.render(document.getElementById("layout"));
+        if (!this.rootNode) {
+            this.rootNode = new NodeModule(false, "mod");
+            this.rootNode.staticAttributes.name = "layout";
+            this.rootNode.create(document.getElementById("layout"));
         } else {
-            this.layout.refresh();
+            this.rootNode.refresh();
         }
     }
 
