@@ -1,5 +1,5 @@
 
-class TemplateList extends Template {
+class ModuleList extends Module {
     template = `<div>
     <div if:true={iterableList}>
         <ul for:each={iterableList} for:item={item}>

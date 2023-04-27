@@ -1,5 +1,5 @@
 
-class TemplateMenu extends Template {
+class ModuleMenu extends Module {
     template = `<div for:each={iterableMenu} for:item={item}>
 <a href={item.url} aria-current={item.current}>{item.label}</a>
 </div>`;

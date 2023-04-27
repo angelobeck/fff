@@ -1,5 +1,5 @@
 
-class TemplateLinked extends Template {
+class ModuleLinked extends Module {
     template = `<ul for:each={iterableList} for:item={item}>
     <li>
     <a href={item.url}>{item.label}</a>

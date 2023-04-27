@@ -5,6 +5,6 @@ class ChessClock_App extends ApplicationHelper {
         me.data = store.controls.openByName("-chess-clock");
     }
     static dispatch() {
-        page.modules.content = ChessClock_TemplateContent;
+        page.modules.content = ChessClock_ModuleContent;
     }
 }

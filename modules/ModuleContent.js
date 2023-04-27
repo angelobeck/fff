@@ -1,5 +1,5 @@
 
-class TemplateContent extends Template {
+class ModuleContent extends Module {
     template = ``;
 
     get content(){

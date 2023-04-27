@@ -1,5 +1,5 @@
 
-class TemplateDescription extends Template {
+class ModuleDescription extends Module {
     template = `<div><p if:true={description}>{description}</p></div>`;
 
     get description(){

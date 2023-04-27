@@ -4,13 +4,13 @@ class Page {
 
     refresh() {
         this.modules = {
-            content: TemplateContent,
-            description: TemplateDescription,
-            layout: TemplateLayout,
-            linked: TemplateLinked,
-            list: TemplateList,
-            menu: TemplateMenu,
-            title: TemplateTitle
+            content: ModuleContent,
+            description: ModuleDescription,
+            layout: ModuleLayout,
+            linked: ModuleLinked,
+            list: ModuleList,
+            menu: ModuleMenu,
+            title: ModuleTitle
         };
     
         application.dispatch();

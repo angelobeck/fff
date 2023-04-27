@@ -1,5 +1,5 @@
 
-class Template {
+class Module {
     #render;
     template = ``;
 

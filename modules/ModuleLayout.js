@@ -1,5 +1,5 @@
 
-class TemplateLayout extends Template {
+class ModuleLayout extends Module {
 template = `
 <mod name="menu" />
 <mod name="title" />

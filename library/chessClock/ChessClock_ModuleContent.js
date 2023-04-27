@@ -1,5 +1,5 @@
 
-class ChessClock_TemplateContent extends Template {
+class ChessClock_ModuleContent extends Module {
 
     template = `<div>
 <div role="menuitem" tabindex="0" onkeydown={timerSwitch}>
