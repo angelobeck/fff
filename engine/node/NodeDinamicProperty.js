@@ -13,9 +13,10 @@ class NodeDinamicProperty extends Node {
     }
 
     remove() {
-        var parentElement = this.node.parentElement;
-        parentElement.removeChild(this.node);
-        this.node = null;
+        if (this.node) {
+            var parentElement = this.node.parentElement;
+            parentElement.removeChild(this.node);
+        }
     }
 
 }

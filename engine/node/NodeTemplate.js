@@ -22,7 +22,13 @@ class NodeTemplate extends Node {
     }
 
     remove() {
-        this.render.removeChildren(this.children);
+        if (this.dinamicAttributes["for:each"] && this.dinamicAttributes["for:item"]) {
+            while (this.loopChildren.length > 0) {
+                this.render.removeChildren(this.loopChildren.pop());
+            }
+        } else {
+            this.render.removeChildren(this.children);
+        }
         var parentElement = this.endingComment.parentElement;
         parentElement.removeChild(this.endingComment);
         this.endingComment = false;
