@@ -28,11 +28,17 @@ var importsList = [
     "library/section/App_section.js",
     "library/root/App_root.js",
     "modules/ModuleContent.js",
+    "modules/ModuleContext.js",
     "modules/ModuleDescription.js",
     "modules/ModuleLayout.js",
     "modules/ModuleLinked.js",
     "modules/ModuleList.js",
+    "modules/ModuleMain.js",
     "modules/ModuleMenu.js",
+    "modules/ModuleRoot.js",
     "modules/ModuleTitle.js",
+    "tags/DreamForm.js",
+    "tags/DreamFormButton.js",
+    "tags/DreamFormInput.js",
     "componentsList.js"
 ];

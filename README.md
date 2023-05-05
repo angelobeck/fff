@@ -1,4 +1,4 @@
-# fff
+﻿# fff
 
 Fast Front Framework - A JS engine to build content without backend
 
@@ -6,7 +6,7 @@ Propomos aqui um framework simples através do qual se possa gerar e navegar pel
 
 Enquanto a estrutura de aplicações e roteamento é inspirada no Portal Ecolabore, o modelo de componentes foi inspirado nos Lightning Web Components (LWC) da Salesforce.
 
-Porém, é importante notar que os componentes propostos aqui não oferecem nenhum grau de isolamento, nem por parte do HTML, nem no CSS nem nas APIs dos mesmos, de modo que o programador precisa ter a atenção redobrada quando nomeia variáveis, cria classes CSS, invoca APIs de componentes ou dispara eventos.
+Porém, é importante notar que os componentes propostos aqui não oferecem nenhum grau de isolamento, nem por parte do HTML, nem no CSS nem nas APIs dos mesmos, de modo que o programador precisa ter a atenção redobrada quando nomeia variáveis, cria seletores CSS, invoca APIs de componentes ou dispara eventos.
 
 Por sorte, todo o sistema é enxuto o bastante para que o programador compreenda seu funcionamento e evite abusos.
 
@@ -43,12 +43,12 @@ O renderizador é bastante estúpido e reconhece apenas algumas pequenas coisas:
 - Tags HTML `<tag></tag>` ou `<tag />` para tags que não possuam descendentes.
 - Atributos estáticos como `atributo="valor"`.
 - Atributos dinâmicos como `atributo={valor}`.
-- Conteúdo está tico delimitado por aspas duplas ou aspas simples: |`"Olá mundo"` ou `'Olá mundo'`.
+- Conteúdo está tico delimitado por aspas duplas ou aspas simples: `"Olá mundo"` ou `'Olá mundo'`.
 - Conteúdo dinâmico como `{propriedade}`.
 
 Alguns atributos especiais podem ser utilizados em certas condições:
 
-- Atributos iniciados por `on*` serão considerados eventos como em `<button onclick={clickHandler}>...`, e você pode receber o evento em sua classe como em `clickHandler(event){...`.}
+- Atributos iniciados por `on*` serão considerados eventos como em `<button onclick={clickHandler}>...`, e você pode receber o evento em sua classe como em `clickHandler(event){...`.
 - `if:true` ou `if:false` podem construir ou destruir qualquer tipo de tag do conteúdo, como `<p if:true={showParagraph}>...`. Basta você declarar e manipular uma propriedade da sua classe como em `showParagraph = true;`.
 - `wire:element` liga o elemento do DOM diretamente a uma variável, como em `<input wire:element={inputElement}>...`. Basta utilizá-lo em sua classe como em `inputElement.focus();`.
 - `for:each`e `for:item` permitem percorrer arrays de elementos, repetindo um bloco de código quantas vezes for necessário.
@@ -60,3 +60,6 @@ Algumas tags especiais podem ser utilizadas:
 - `<mod name="title" />` insere um módulo.
 - `<my-component />` insere um componente registrado em `componentsLists.myComponent = MyComponentClass`.
 
+## Dados
+
+Todos os dados são carregados de um arquivo de dados. O objeto global store oferece uma série de facilidades para encontrar algum conteúdo, realizando coisas como selects, limitando a quantidade de resultados ou  ordenando a lista de resultados de acordo com algum critério.

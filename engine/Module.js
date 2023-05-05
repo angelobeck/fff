@@ -11,4 +11,7 @@ class Module {
         this.#render.refresh();
     }
 
+    connectedCallback() { }
+    renderedCallback() { }
+    disconnectedCallback(){}
 }

@@ -9,7 +9,7 @@ class TokenTree {
             this.steps[this.currentStep].push(this.currentElement);
         }
         if (name === "mod") {
-            this.currentElement = new NodeModule(false);
+            this.currentElement = new NodeModule(render);
         } else if (name === "template") {
             this.currentElement = new NodeTemplate(render);
         } else if (name === "slot") {

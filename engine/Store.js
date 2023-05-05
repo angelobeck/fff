@@ -36,7 +36,24 @@ class Store {
     #where(register, where) {
         for (let name in where) {
             const value = where[name];
-            if (register[name] === undefined || register[name] === null || register[name] !== value) {
+            if (register[name] === undefined || register[name] === null) {
+                return false;
+            }
+            if (name === "linked") {
+                if (!this.#keywordExists(register.linked, value)) {
+                    return false;
+                } else {
+                    continue;
+                }
+            }
+            if (name === "keywords") {
+                if (!this.#keywordExists(register.keywords, value)) {
+                    return false;
+                } else {
+                    continue;
+                }
+            }
+            if (register[name] !== value) {
                 return false;
             }
         }
@@ -68,6 +85,15 @@ class Store {
         });
     }
 
+    #keywordExists(keywordsString, keyword) {
+        var keywordsList = keywordsString.split(" ");
+        if (keywordsList.indexOf(keyword) >= 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     openByName(name) {
         for (let index = 0; index < this.#cache.length; index++) {
             const register = this.#cache[index];
@@ -83,13 +109,25 @@ class Store {
         var children = this.query({
             where: { parentName: parentName }
         });
-        for(let i = 0; i < children.length; i++) {
+        for (let i = 0; i < children.length; i++) {
             let data = children[i];
-            if(data.name) {
+            if (data.name) {
                 names.push(data.name);
             }
         }
         return names;
+    }
+
+    getPath(name) {
+        var path = [];
+        while (true) {
+            path.unshift(name);
+            const register = this.openByName(name);
+            if (!register || !register.parentName || register.parentName === "") {
+                return path;
+            }
+            name = register.parentName;
+        }
     }
 
 }

@@ -46,7 +46,7 @@ class Render {
                     node.create(node.conditionEndingComment.parentElement, node.conditionEndingComment);
                 } else if (node.status && !this.checkConditionStatus(node)) {
                     node.remove();
-                } else if(node.status) {
+                } else if (node.status) {
                     node.refresh();
                 }
                 node.status = this.checkConditionStatus(node);
@@ -87,16 +87,53 @@ class Render {
 
     setComponentProperty(path, value) {
         var parts = path.split(".");
-        if (parts.length === 1) {
-            this.component[parts.shift()] = value;
+        var name = parts.shift();
+        if (parts.length === 0) {
+            this.component[name] = value;
+            return;
+        }
+        var name2 = parts.shift();
+        if (!this.component[name]) {
+            this.component[name] = {};
+        }
+        if (parts.length === 0) {
+            this.component[name][name2] = value;
+            return;
         }
     }
 
     checkConditionStatus(node) {
+        var value;
         if (node.dinamicAttributes["if:true"]) {
-            return !!this.getComponentProperty(node.dinamicAttributes["if:true"]);
+            value = this.getComponentProperty(node.dinamicAttributes["if:true"]);
+            if (
+                value === undefined ||
+                value === null ||
+                value === false ||
+                value === "false" ||
+                value === 0 ||
+                value === "" ||
+                (Array.isArray(value) && value.length === 0)
+            ) {
+                return false;
+            } else {
+                return true;
+            }
         } else if (node.dinamicAttributes["if:false"]) {
-            return !this.getComponentProperty(node.dinamicAttributes["if:false"]);
+            value = this.getComponentProperty(node.dinamicAttributes["if:true"]);
+            if (
+                value === undefined ||
+                value === null ||
+                value === false ||
+                value === "false" ||
+                value === 0 ||
+                value === "" ||
+                (Array.isArray(value) && value.length === 0)
+            ) {
+                return true;
+            } else {
+                return false;
+            }
         } else {
             return true;
         }
@@ -132,14 +169,16 @@ class Render {
     afterEvent() {
         for (name in this.trackedProperties) {
             if (this.trackedProperties[name] !== this.component[name]) {
-                this.refreshChildren(this.rootNode.children);
+                this.rootNode.refresh();
+                // this.refreshChildren(this.rootNode.children);
                 return;
             }
         }
     }
 
     refresh() {
-        this.refreshChildren(this.rootNode.children);
+        this.rootNode.refresh();
+        // this.refreshChildren(this.rootNode.children);
     }
 
 }

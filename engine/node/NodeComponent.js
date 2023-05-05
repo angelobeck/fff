@@ -3,12 +3,10 @@ class NodeComponent extends Node {
     parentRender;
 
     create(parentElement, insertBeforeMe) {
-        this.parentRender = this.render;
-        this.generateModule(parentElement, insertBeforeMe);
-    }
-
-    generateModule(parentElement, insertBeforeMe) {
-        var component = new componentsList[this.type]();
+        if(!this.parentRender) {
+            this.parentRender = this.render;
+        }
+        var component = new componentsList[this.value]();
         this.render = new Render(component, this);
         var tokenizer = new Tokenizer(component.template);
         var tokens = tokenizer.tokenize();
@@ -17,16 +15,28 @@ class NodeComponent extends Node {
         this.children = parser.parse();
         this.createStaticAttributes();
         this.createDinamicAttributes();
+        setTimeout(() => {
+            this.render.beforeEvent();
+            this.render.component.renderedCallback();
+            this.render.afterEvent();
+        }, 20);
+        this.render.component.connectedCallback();
         this.render.createChildren(this.children, parentElement, insertBeforeMe);
     }
 
     refresh() {
         this.refreshDinamicAttributes();
+        setTimeout(() => {
+            this.render.beforeEvent();
+            this.render.component.renderedCallback();
+            this.render.afterEvent();
+        }, 20);
         this.render.refreshChildren(this.children);
     }
 
     remove() {
         this.render.removeChildren(this.children);
+        this.render.component.disconnectedCallback();
     }
 
     createStaticAttributes() {
@@ -43,18 +53,18 @@ class NodeComponent extends Node {
             } else if (name.indexOf(":") > 0) {
                 continue;
             } else {
-                const target = this.dinamicAttributes[name];
-                const value = this.parentRender.getComponentProperty(target);
+                const path = this.dinamicAttributes[name];
+                const value = this.parentRender.getComponentProperty(path);
                 this.render.setComponentProperty(name, value);
             }
         }
     }
 
     createEvent(name) {
-        var callback = this.dinamicAttributes[name];
+        var callbackName = this.dinamicAttributes[name];
         this.render.component[name] = (event) => {
             this.parentRender.beforeEvent();
-            this.parentRender.component[callback](event);
+            this.parentRender.component[callbackName](event);
             this.parentRender.afterEvent();
         }
     }
@@ -66,8 +76,8 @@ class NodeComponent extends Node {
             } else if (name.indexOf(":") > 0) {
                 continue;
             } else {
-                const target = this.dinamicAttributes[name];
-                const value = this.parentRender.getComponentProperty(target);
+                const path = this.dinamicAttributes[name];
+                const value = this.parentRender.getComponentProperty(path);
                 this.render.setComponentProperty(name, value);
             }
         }

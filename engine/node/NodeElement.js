@@ -82,7 +82,7 @@ class NodeElement extends Node {
         const target = this.dinamicAttributes["for:item"];
         this.loopChildren = [];
         for (let iteratorIndex = 0; iteratorIndex < loopIterator.length; iteratorIndex++) {
-            this.render.component[target] = loopIterator[iteratorIndex];
+            this.render.setComponentProperty(target, loopIterator[iteratorIndex]);
             loopChildren = this.render.cloneChildren(this.children);
             this.loopChildren.push(loopChildren);
             this.render.createChildren(loopChildren, this.node);
@@ -95,6 +95,9 @@ class NodeElement extends Node {
             const value = this.render.getComponentProperty(path);
             if (name.startsWith("on")) {
                 continue;
+            } else if (name === "wire:element") {
+                continue;
+                // this.render.setComponentProperty(path, this.node);
             } else if (name.indexOf(":") > 0) {
                 continue;
             } else {

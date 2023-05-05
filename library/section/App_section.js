@@ -25,4 +25,17 @@ class App_section extends ApplicationHelper {
         me.data = store.domainContent.openByName(me.name);
     }
 
+    static dispatch() {
+
+        page.modules.context.children.push({
+            label: "editar",
+            url: page.url(true, true, "_edit"),
+            current: !!page.actions.edit
+        });
+
+        if(page.actions.edit) {
+            page.modules.main.namesList = ["formulary"];
+            page.modules.formulary = new DreamForm();
+        }
+    }
 }

@@ -52,6 +52,20 @@ class Application {
         return this.#children;
     }
 
+    findChild(path) {
+        if (!Array.isArray(path)) {
+            return false;
+        }
+        var app = this;
+        while (path.length > 0) {
+            app = app.child(path.shift());
+            if (!app) {
+                return false;
+            }
+        }
+        return app;
+    }
+
     dispatch(page) {
         this.#helper.dispatch(page);
     }
