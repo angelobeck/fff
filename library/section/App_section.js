@@ -28,14 +28,52 @@ class App_section extends ApplicationHelper {
     static dispatch() {
 
         page.modules.context.children.push({
-            label: "editar",
+            label: { pt: "editar", en: "Edit" },
             url: page.url(true, true, "_edit"),
             current: !!page.actions.edit
         });
 
-        if(page.actions.edit) {
+        page.modules.context.children.push({
+            label: { pt: "Exportar", en: "Export" },
+            url: page.url(true, true, "_export"),
+            current: !!page.actions.export
+        });
+
+        if (page.actions.edit) {
+            var form = new DreamForm();
+            form.data = application.data;
+            form.actions.save = () => {
+                application.data = form.data;
+                page.navigateTo();
+            };
+            form.actions.cancel = () => {
+                page.navigateTo();
+            };
+            form.controls = store.controls.openByName("section-edit").children;
             page.modules.main.namesList = ["formulary"];
-            page.modules.formulary = new DreamForm();
+            page.modules.formulary = form;
         }
+
+        if (page.actions.export) {
+            var form = new DreamForm();
+            form.actions.save = () => {
+                const value = JSON.stringify(data.domainContent);
+                let blob = new Blob([value], { type: 'text/json;charset=utf-8;' });
+                const link = window.document.createElement('A');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'content.json';
+                link.click();
+                window.URL.revokeObjectURL(link.href);
+                page.navigateTo();
+            };
+            form.actions.cancel = () => {
+                page.navigateTo();
+            };
+            form.controls = store.controls.openByName("section-export").children;
+            page.modules.main.namesList = ["formulary"];
+            page.modules.formulary = form;
+        }
+
     }
+
 }

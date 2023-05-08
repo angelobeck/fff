@@ -1,9 +1,9 @@
 
-class DreamFormInput extends Module {
+class DreamFormCheckbox extends Module {
     template = `
     <div>
     <label><text value={label} />
-<input type="text" value={value} onkeydown={handleKeyDown} />
+<input type="checkbox" value={value} onkeydown={handleKeyDown} />
     </label>
     </div>
     `;

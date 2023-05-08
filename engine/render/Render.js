@@ -177,8 +177,8 @@ class Render {
     }
 
     refresh() {
-        this.rootNode.refresh();
-        // this.refreshChildren(this.rootNode.children);
+        // this.rootNode.refresh();
+        this.refreshChildren(this.rootNode.children);
     }
 
 }

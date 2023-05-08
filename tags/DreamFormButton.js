@@ -2,7 +2,7 @@
 class DreamFormButton extends Module {
     template = `
     <div>
-    <button onclick={handleClick}>{label}</button>
+    <button onclick={handleClick}><text value={label} /></button>
     </div>
     `;
 

@@ -2,6 +2,7 @@
 class ModuleLayout extends Module {
     template = `
 <div wire:element={layoutElement}>
+<mod name="languages" />
 <mod name="menu" />
 <mod name="title" nofocus={menuExpanded} />
 <mod name="main" />
@@ -11,10 +12,10 @@ class ModuleLayout extends Module {
 </div>
 <div if:true={menuExpanded}>
 <div tabindex="0" onfocus={focusOnLastElement}></div>
-<h1  tabindex="0" wire:element={menuTitleElement}>"Opções"</h1>
-<mod name="context" />
+<h1  tabindex="0" wire:element={menuTitleElement}><text value={menuLabel} /></h1>
+<mod name="context" onchange={menuSwitch} />
 <hr />
-<button wire:element={menuButtonElement} onclick={menuSwitch}>"Fechar"</button>
+<button wire:element={menuButtonElement} onclick={menuSwitch}><text value={closeLabel} /></button>
 <div tabindex="0" onfocus={focusOnFirstElement}></div>
 </div>
 `;
@@ -23,6 +24,8 @@ class ModuleLayout extends Module {
     menuTitleElement;
     menuButtonElement;
     layouteElement;
+    menuLabel = { pt: "Opções", en: "Options" };
+    closeLabel = { pt: "Fechar", en: "Close" };
 
     menuSwitch() {
         this.menuExpanded = !this.menuExpanded;

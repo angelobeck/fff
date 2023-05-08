@@ -1,6 +1,8 @@
 
 class ModuleTitle extends Module {
-    template = `<h1 tabindex="0" wire:element={header} onblur={handleBlur}>{title}</h1>`;
+    template = `<h1 tabindex="0" wire:element={header} onblur={handleBlur}>
+    <text value={title} />
+    </h1>`;
 
     header;
     nofocus = "título";

@@ -2,11 +2,11 @@
 class ModuleLinked extends Module {
     template = `
     <div for:each={iterableList} for:item={item}>
-    <h2>{item.label}</h2>
+    <h2><text value={item.label} /></h2>
     <ul for:each={item.children} for:item={child}>
     <li>
-    <a href={child.url}>{child.label}</a>
-    <p if:true={child.description}>{child.description}</p>
+    <a href={child.url}><text value={child.label} /></a>
+    <p if:true={child.description}><text value={child.description} /></p>
     </li>
     </ul>
     </div>`;

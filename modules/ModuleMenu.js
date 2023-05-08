@@ -1,7 +1,7 @@
 
 class ModuleMenu extends Module {
     template = `<div for:each={iterableMenu} for:item={item}>
-<a href={item.url} aria-current={item.current}>{item.label}</a>
+<a href={item.url} aria-current={item.current}><text value={item.label} /></a>
 </div>`;
 
     get iterableMenu() {

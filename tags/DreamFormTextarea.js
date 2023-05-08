@@ -1,9 +1,9 @@
 
-class DreamFormInput extends Module {
+class DreamFormTextarea extends Module {
     template = `
     <div>
     <label><text value={label} />
-<input type="text" value={value} onkeydown={handleKeyDown} />
+<textarea value={value} onkeydown={handleKeyDown} />
     </label>
     </div>
     `;

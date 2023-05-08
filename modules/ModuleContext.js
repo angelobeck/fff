@@ -1,8 +1,10 @@
 
 class ModuleContext extends Module {
     template = `<div for:each={iterableMenu} for:item={item}>
-<a href={item.url} aria-current={item.current}>{item.label}</a>
+<a tabindex="0" data-url={item.url} onclick={handleClick} aria-current={item.current} style="display:block"><text value={item.label} /></a>
 </div>`;
+
+onchange = () => {};
 
 children = [];
 
@@ -16,4 +18,9 @@ get iterableMenu() {
         });
     }
 
+    handleClick(event) {
+        var url = event.currentTarget.dataset.url;
+        this.onchange();
+        window.location.hash = url;
+    }
 }
