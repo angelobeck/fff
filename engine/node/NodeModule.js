@@ -42,7 +42,7 @@ class NodeModule extends Node {
 
     refresh() {
         var moduleSymbol = this.findMySymbol();
-        if (moduleSymbol === this.moduleSymbol) {
+        if (moduleSymbol && this.moduleSymbol && moduleSymbol === this.moduleSymbol) {
             this.refreshDinamicAttributes();
             setTimeout(() => {
                 this.render.beforeEvent();

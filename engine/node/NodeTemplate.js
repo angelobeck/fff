@@ -35,7 +35,7 @@ class NodeTemplate extends Node {
     }
 
     createLoop(parentElement, insertBeforeMe) {
-        var loopChildren;
+        var children;
         const loopIterator = this.render.getComponentProperty(this.dinamicAttributes["for:each"]);
         if (!Array.isArray(loopIterator)) {
             return;
@@ -44,35 +44,35 @@ class NodeTemplate extends Node {
         this.loopChildren = [];
         for (let iteratorIndex = 0; iteratorIndex < loopIterator.length; iteratorIndex++) {
             this.render.component[target] = loopIterator[iteratorIndex];
-            loopChildren = this.render.cloneChildren(this.children);
-            this.loopChildren.push(loopChildren);
-            this.render.createChildren(loopChildren, parentElement, insertBeforeMe);
+            children = this.render.cloneChildren(this.children);
+            this.loopChildren.push(children);
+            this.render.createChildren(children, parentElement, insertBeforeMe);
         }
     }
 
     refreshLoop() {
         var parentElement = this.endingComment.parentElement;
-        var loopChildren;
+        var children;
         const loopIterator = this.render.getComponentProperty(this.dinamicAttributes["for:each"]);
         if (!Array.isArray(loopIterator)) {
             loopIterator = [];
         }
         let target = this.dinamicAttributes["for:item"];
         while (this.loopChildren.length > loopIterator.length) {
-            loopChildren = this.loopChildren.pop();
-            while (loopChildren.length > 0) {
-                loopChildren.pop().remove();
+            children = this.loopChildren.pop();
+            while (children.length > 0) {
+                children.pop().remove();
             }
         }
         for (let iteratorIndex = 0; iteratorIndex < loopIterator.length; iteratorIndex++) {
             this.render.component[target] = loopIterator[iteratorIndex];
             if (iteratorIndex < this.loopChildren.length) {
-                loopChildren = this.loopChildren[iteratorIndex];
-                this.render.refreshChildren(loopChildren);
+                children = this.loopChildren[iteratorIndex];
+                this.render.refreshChildren(children);
             } else {
-                loopChildren = this.render.cloneChildren(this.children);
-                this.loopChildren.push(loopChildren);
-                this.render.createChildren(loopChildren, parentElement, this.endingComment);
+                children = this.render.cloneChildren(this.children);
+                this.loopChildren.push(children);
+                this.render.createChildren(children, parentElement, this.endingComment);
             }
         }
     }

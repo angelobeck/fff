@@ -169,8 +169,12 @@ class Render {
     afterEvent() {
         for (name in this.trackedProperties) {
             if (this.trackedProperties[name] !== this.component[name]) {
-                this.rootNode.refresh();
-                // this.refreshChildren(this.rootNode.children);
+                setTimeout(() => {
+                    this.beforeEvent();
+                    this.component.renderedCallback();
+                    this.afterEvent();
+                }, 20);
+                this.refreshChildren(this.rootNode.children);
                 return;
             }
         }

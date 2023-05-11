@@ -9,11 +9,10 @@ class ModuleMain extends Module {
     namesList = ["description", "content", "list", "linked"];
     
     get iterableNames() {
-        return this.namesList.map((item) => {
+        return this.namesList.map(item => {
             return {
                 name: item
             }
-        });
+        })
     }
-
 }
