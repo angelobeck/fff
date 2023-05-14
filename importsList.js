@@ -48,5 +48,6 @@ var importsList = [
     "tags/DreamFormInput.js",
     "tags/DreamFormTextarea.js",
     "tags/Text.js",
+    "tags/TextMarkdown.js",
     "componentsList.js"
 ];

@@ -1,12 +1,18 @@
 ﻿
 var data = data || {};
-
 data.domainContent = [
 {
 name: "wcag",
 parentName: "",
-title: "WCAG",
-description: "Diretrizes de acessibilidade para conteúdos Web"
+title: {
+pt: "#c #qWCAG#q"
+},
+description: {
+pt: "Diretrizes de acessibilidade para conteúdos Web"
+},
+content: {
+pt: ""
+}
 },
 {
 name: "-index",
@@ -2536,4 +2542,3 @@ parentName: "tutorial",
 title: "Multimídia"
 }
 ];
-

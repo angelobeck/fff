@@ -5,7 +5,8 @@ var componentsList = {
     "dream-form-checkbox": DreamFormCheckbox,
     "dream-form-input": DreamFormInput,
     "dream-form-textarea": DreamFormTextarea,
-    "text": Text
+    "text": Text,
+    "text-markdown": TextMarkdown
 };
 
 var filtersList = {

@@ -57,9 +57,14 @@ data.controls = [
         children: [
             {
                 type: "button",
-                label: { pt: "Exportar arquivo .json", en: "Export .json file" },
-                action: "save"
-            }
+                label: { pt: "Exportar dados .js", en: "Export .js data file" },
+                action: "exportData"
+            },
+{
+                type: "button",
+                label: { pt: "Exportar página HTML", en: "Export HTML page" },
+                action: "exportDocument"
+}
         ]
     }
 ];

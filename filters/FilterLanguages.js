@@ -5,24 +5,25 @@ class FilterLanguages extends Filter {
         var target = control.target;
         var value = formulary.getField(target);
         if (typeof (value) === "string") {
-            return value;
+            return page.unescapeString(value);
         }else if(value === undefined) {
             return "";
         }
         if (value[page.lang]) {
-            return value[page.lang];
+            return page.unescapeString(value[page.lang]);
         }
         return "";
     }
 
     static update(control, formulary) {
         var target = control.target;
+        var updated = page.escapeString(control.value);
         var value = formulary.getField(target);
         if (value === undefined || typeof (value) === "string") {
             value = {};
-            value[page.lang] = control.value;
+            value[page.lang] = updated;
         } else {
-            value[page.lang] = control.value;
+            value[page.lang] = updated;
         }
         formulary.setField(target, value);
     }

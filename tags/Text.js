@@ -5,7 +5,7 @@ class Text extends Module {
     value = "";
 
 get text() {
-    return page.selectLanguage(this.value);
+    return page.unescapeString(page.selectLanguage(this.value));
 }
 
 }

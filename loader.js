@@ -27,7 +27,7 @@ function loader() {
         });
     }
     element.src = name;
-    document.body.appendChild(element);
+    document.body.parentElement.appendChild(element);
 }
 
 window.addEventListener("load", loader);

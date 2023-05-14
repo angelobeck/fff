@@ -94,6 +94,20 @@ class Store {
         }
     }
 
+    update(register) {
+        if (!register.name || register.name === "") {
+            return;
+        }
+        var name = register.name;
+        for (let index = 0; index < this.#cache.length; index++) {
+            const current = this.#cache[index];
+            if (current.name && current.name === name) {
+                this.#cache[index] = register;
+                return;
+            }
+        }
+    }
+
     openByName(name) {
         for (let index = 0; index < this.#cache.length; index++) {
             const register = this.#cache[index];

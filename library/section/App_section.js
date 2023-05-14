@@ -44,6 +44,7 @@ class App_section extends ApplicationHelper {
             form.data = application.data;
             form.actions.save = () => {
                 application.data = form.data;
+                store.domainContent.update(form.data);
                 page.navigateTo();
             };
             form.actions.cancel = () => {
@@ -56,16 +57,30 @@ class App_section extends ApplicationHelper {
 
         if (page.actions.export) {
             var form = new DreamForm();
-            form.actions.save = () => {
-                const value = JSON.stringify(data.domainContent);
-                let blob = new Blob([value], { type: 'text/json;charset=utf-8;' });
+            form.actions.exportData = () => {
+                const value = "var data = data || {}\r\ndata.domainContent = " + page.serializeJS(data.domainContent) + ";\r\n";
+                let blob = new Blob([value], { type: 'text/javascript;charset=utf-8;' });
                 const link = window.document.createElement('A');
                 link.href = window.URL.createObjectURL(blob);
-                link.download = 'content.json';
+                link.download = 'domainContent.js';
                 link.click();
                 window.URL.revokeObjectURL(link.href);
                 page.navigateTo();
             };
+
+            form.actions.exportDocument = () => {
+                page.navigateTo();
+setTimeout(() => {
+                const value = "<html><body>" + document.body.innerHTML + "</body></html>";
+                let blob = new Blob([value], { type: 'text/javascript;charset=utf-8;' });
+                const link = window.document.createElement('A');
+                link.href = window.URL.createObjectURL(blob);
+                link.download = 'fff.html';
+                link.click();
+                window.URL.revokeObjectURL(link.href);
+}, 400);
+            };
+
             form.actions.cancel = () => {
                 page.navigateTo();
             };
