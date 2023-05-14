@@ -106,7 +106,11 @@ class Render {
         var value;
         if (node.dinamicAttributes["if:true"]) {
             value = this.getComponentProperty(node.dinamicAttributes["if:true"]);
-            if (
+            if (node.staticAttributes["if:compare"]) {
+                return value === node.staticAttributes["if:compare"];
+            } else if (node.dinamicAttributes["if:compare"]) {
+                return value === this.getComponentProperty(node.dinamicAttributes["if:compare"]);
+            } else if (
                 value === undefined ||
                 value === null ||
                 value === false ||
@@ -120,8 +124,12 @@ class Render {
                 return true;
             }
         } else if (node.dinamicAttributes["if:false"]) {
-            value = this.getComponentProperty(node.dinamicAttributes["if:true"]);
-            if (
+            value = this.getComponentProperty(node.dinamicAttributes["if:false"]);
+            if (node.staticAttributes["if:compare"]) {
+                return value !== node.staticAttributes["if:compare"];
+            } else if (node.dinamicAttributes["if:compare"]) {
+                return value !== this.getComponentProperty(node.dinamicAttributes["if:compare"]);
+            }else if (
                 value === undefined ||
                 value === null ||
                 value === false ||

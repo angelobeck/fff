@@ -43,6 +43,9 @@ class NodeElement extends Node {
 
     createStaticAttributes() {
         for (let name in this.staticAttributes) {
+            if(name.indexOf(":") >= 0) {
+                continue;
+            }
             let value = this.staticAttributes[name];
             this.node.setAttribute(name, value);
         }
