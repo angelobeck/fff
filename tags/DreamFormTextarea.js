@@ -3,7 +3,7 @@ class DreamFormTextarea extends Module {
     template = `
     <div>
     <label><text value={label} />
-<textarea value={value} onkeydown={handleKeyDown} />
+<textarea onkeydown={handleKeyDown}>{value}</textarea>
     </label>
     </div>
     `;
