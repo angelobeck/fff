@@ -1,19 +1,21 @@
 
-class ChessClock_ModuleContent extends Module {
+class SectionChess_ModuleContent extends Module {
 
-    template = `<div>
-<div role="menuitem" tabindex="0" onkeydown={timerSwitch}>
+    template = `<div style="display:flex">
+<div role="menuitem" tabindex="0" onkeydown={timerSwitch} style="flex-grow:1; background:black; color:white font-size:2em; font-weight:bold;  text-align:center;">
 <h2>"Brancas"</h2>
 <p>{timerWhite}</p>
 </div>
 
-<div role="menuitem" tabindex="0" onkeydown={timerSwitch}>
+<div role="menuitem" tabindex="0" onkeydown={timerSwitch} style="flex-grow:1">
 <h2>"Pretas"</h2>
 <p>{timerBlack}</p>
 </div>
 
+</div>
+
 <div onkeydown={playPause} role="menuitem" tabindex="0">{playPauseLabel}</div>
-</div>`;
+`;
 
     timerWhite = 60;
     timerBlack = 60;

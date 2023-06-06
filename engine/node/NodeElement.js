@@ -43,7 +43,7 @@ class NodeElement extends Node {
 
     createStaticAttributes() {
         for (let name in this.staticAttributes) {
-            if(name.indexOf(":") >= 0) {
+            if (name.indexOf(":") >= 0) {
                 continue;
             }
             let value = this.staticAttributes[name];
@@ -103,6 +103,8 @@ class NodeElement extends Node {
                 // this.render.setComponentProperty(path, this.node);
             } else if (name.indexOf(":") > 0) {
                 continue;
+            } else if (name === "value") {
+                this.node.value = value;
             } else {
                 this.node.setAttribute(name, value);
             }

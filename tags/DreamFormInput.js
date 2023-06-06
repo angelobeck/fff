@@ -3,43 +3,26 @@ class DreamFormInput extends Module {
     template = `
     <div>
     <label><text value={label} />
-<input type="text" value={value} onkeydown={handleKeyDown} />
+<input type="text" value={value} onkeydown={handleKeyDown} wire:element={inputElement} />
     </label>
     </div>
     `;
 
-    #control = {
-        action: false,
-        filter: "text",
-        label: "",
-        required: false,
-        target: false,
-        value: ""
-    }
-
-    set control(control) {
-        const fields = ["action", "filter", "label", "required", "target", "value"];
-        while (fields.length > 0) {
-            const name = fields.shift();
-            if (control[name]) {
-                this.#control[name] = control[name];
-            }
-        }
-    }
+    value = "";
+    control = {};
+    inputElement;
 
     onchange = (event) => { };
 
     get label() {
-        return this.#control.label;
-    }
-
-    get value() {
-        return this.#control.value;
+        return this.control.label || "";
     }
 
     handleKeyDown(event) {
-        this.#control.value = event.currentTarget.value;
-        this.onchange({ detail: this.#control });
+        this.value = event.currentTarget.value;
+        this.onchange({
+            detail: this
+        });
     }
 
 }

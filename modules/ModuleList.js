@@ -5,7 +5,7 @@ class ModuleList extends Module {
         <ul for:each={iterableList} for:item={item}>
     <li>
     <a href={item.url}><text value={item.title} /></a>
-    <p if:true={item.description}>{item.description}</p>
+    <p if:true={item.description}><text value={item.description} /></p>
     </li>
     </ul>
     </div>

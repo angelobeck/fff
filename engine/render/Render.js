@@ -129,7 +129,7 @@ class Render {
                 return value !== node.staticAttributes["if:compare"];
             } else if (node.dinamicAttributes["if:compare"]) {
                 return value !== this.getComponentProperty(node.dinamicAttributes["if:compare"]);
-            }else if (
+            } else if (
                 value === undefined ||
                 value === null ||
                 value === false ||

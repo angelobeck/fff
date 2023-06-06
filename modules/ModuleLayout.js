@@ -12,8 +12,9 @@ class ModuleLayout extends Module {
 </div>
 <div if:true={menuExpanded}>
 <div tabindex="0" onfocus={focusOnLastElement}></div>
-<h1  tabindex="0" wire:element={menuTitleElement}><text value={menuLabel} /></h1>
+<h2  tabindex="0" wire:element={menuTitleElement}><text value={menuLabel} /></h2>
 <mod name="context" onchange={menuSwitch} />
+<mod name="tools" onchange={menuSwitch} />
 <hr />
 <button wire:element={menuButtonElement} onclick={menuSwitch}><text value={closeLabel} /></button>
 <div tabindex="0" onfocus={focusOnFirstElement}></div>

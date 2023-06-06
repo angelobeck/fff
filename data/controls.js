@@ -5,51 +5,28 @@ data.controls = [
     {
         name: "-default",
         menu_hidden: true,
-        title: "Página não encontrada",
-        description: "A página que você procura não existe."
+        title: { pt: "Página não encontrada", en: "Page not found" },
+        description: { pt: "A página que você procura não existe.", en: "The page you requested does not exists" }
     },
     {
         name: "-index",
-        title: "Checklist de acessibilidade",
-        description: "Este é um pequeno manual de referência sobre acessibilidade."
+        title: { pt: "Início", en: "Home" }
     },
     {
-        name: "-chess-clock",
-        title: "Relógio para xadrez",
-        description: "Um simples relógio para contar o tempo de partidas de xadrez."
+        name: "section-create",
+        title: { pt: "Nova seção", en: "New section" },
+        children: [
+            "edit-title",
+            "edit-name",
+            "edit-description"
+        ]
     },
     {
         name: "section-edit",
         title: { pt: "Editar seção", en: "Edit section" },
         children: [
-            {
-                type: "input",
-                filter: "languages",
-                label: { pt: "Título", en: "Title" },
-                target: "title",
-            },
-            {
-                type: "input",
-                filter: "languages",
-                label: { pt: "Descrição", en: "Description" },
-                target: "description"
-            },
-            {
-                type: "textarea",
-                filter: "languages",
-                label: { pt: "Conteúdo", en: "Content" },
-                target: "content"
-            },
-            {
-                type: "button",
-                action: "save",
-                label: { pt: "Salvar", en: "save" }
-            },
-            {
-                type: "button",
-                action: "cancel",
-                label: { pt: "Cancelar", en: "Cancel" }
-            }
+            "edit-title",
+            "edit-description"
         ]
     },
     {
@@ -60,11 +37,63 @@ data.controls = [
                 label: { pt: "Exportar dados .js", en: "Export .js data file" },
                 action: "exportData"
             },
-{
+            {
                 type: "button",
                 label: { pt: "Exportar página HTML", en: "Export HTML page" },
                 action: "exportDocument"
-}
+            }
         ]
+    },
+    {
+        name: "edit-title",
+        type: "input",
+        filter: "languages",
+        label: { pt: "Título", en: "Title" },
+        target: "title",
+    },
+    {
+        name: "edit-name",
+        type: "input",
+        filter: "folderName",
+        label: { pt: "Pasta", en: "Folder" },
+        target: "name"
+    },
+    {
+        name: "edit-description",
+        type: "input",
+        filter: "languages",
+        label: { pt: "Descrição", en: "Description" },
+        target: "description"
+    },
+    {
+        name: "edit-content",
+        type: "textarea",
+        filter: "languages",
+        label: { pt: "Conteúdo", en: "Content" },
+        target: "content"
+    },
+    {
+        name: "command-save",
+        type: "button",
+        action: "save",
+        label: { pt: "Salvar", en: "save" }
+    },
+    {
+        name: "command-cancel",
+        type: "button",
+        action: "cancel",
+        label: { pt: "Cancelar", en: "Cancel" }
+    },
+    {
+        name: "tools",
+        title: { pt: "Ferramentas", en: "Tools" }
+    },
+    {
+        name: "tool-config",
+        title: { pt: "Configurações", en: "Configurations" }
+    },
+    {
+        name: "tool-export",
+        title: { pt: "Exportar", en: "Export" }
     }
 ];

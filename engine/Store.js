@@ -108,6 +108,10 @@ class Store {
         }
     }
 
+    insert(row) {
+        this.#cache.push(row);
+    }
+
     openByName(name) {
         for (let index = 0; index < this.#cache.length; index++) {
             const register = this.#cache[index];

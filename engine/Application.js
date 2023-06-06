@@ -8,6 +8,7 @@ class Application {
     #children = [];
     #childrenIsLoaded = false;
     #childrenByName = {};
+    sectionHelper;
 
     constructor(parent, name, helper) {
         this.parent = parent;
@@ -64,6 +65,12 @@ class Application {
             }
         }
         return app;
+    }
+
+    refresh() {
+        this.#children = [];
+        this.#childrenIsLoaded = false;
+        this.#childrenByName = {};
     }
 
     dispatch(page) {

@@ -1,6 +1,6 @@
 
 class App_section extends ApplicationHelper {
-    static map = [App_section];
+    static map = [App_section, App_sectionCreate];
 
     static isChild(parent, name) {
         var data = store.domainContent.openByName(name);
@@ -23,6 +23,10 @@ class App_section extends ApplicationHelper {
 
     static constructorHelper(me) {
         me.data = store.domainContent.openByName(me.name);
+        if (me.data.sectionType && sectionHelpersList[me.data.sectionType]) {
+            me.sectionHelper = sectionHelpersList[me.data.sectionType];
+            me.sectionHelper.constructorHelper(me);
+        }
     }
 
     static dispatch() {
@@ -37,6 +41,11 @@ class App_section extends ApplicationHelper {
             label: { pt: "Exportar", en: "Export" },
             url: page.url(true, true, "_export"),
             current: !!page.actions.export
+        });
+
+        page.modules.context.children.push({
+            label: { pt: "Nova subseção", en: "New subsection" },
+            url: page.url([...application.path, "-section-create"])
         });
 
         if (page.actions.edit) {
@@ -55,7 +64,7 @@ class App_section extends ApplicationHelper {
             page.modules.formulary = form;
         }
 
-        if (page.actions.export) {
+        else if (page.actions.export) {
             var form = new DreamForm();
             form.actions.exportData = () => {
                 const value = "var data = data || {}\r\ndata.domainContent = " + page.serializeJS(data.domainContent) + ";\r\n";
@@ -70,15 +79,15 @@ class App_section extends ApplicationHelper {
 
             form.actions.exportDocument = () => {
                 page.navigateTo();
-setTimeout(() => {
-                const value = "<html><body>" + document.body.innerHTML + "</body></html>";
-                let blob = new Blob([value], { type: 'text/javascript;charset=utf-8;' });
-                const link = window.document.createElement('A');
-                link.href = window.URL.createObjectURL(blob);
-                link.download = 'fff.html';
-                link.click();
-                window.URL.revokeObjectURL(link.href);
-}, 400);
+                setTimeout(() => {
+                    const value = "<html><body>" + document.body.innerHTML + "</body></html>";
+                    let blob = new Blob([value], { type: 'text/javascript;charset=utf-8;' });
+                    const link = window.document.createElement('A');
+                    link.href = window.URL.createObjectURL(blob);
+                    link.download = 'fff.html';
+                    link.click();
+                    window.URL.revokeObjectURL(link.href);
+                }, 400);
             };
 
             form.actions.cancel = () => {
@@ -87,6 +96,12 @@ setTimeout(() => {
             form.controls = store.controls.openByName("section-export").children;
             page.modules.main.namesList = ["formulary"];
             page.modules.formulary = form;
+        }
+
+        else {
+            if (application.sectionHelper) {
+                application.sectionHelper.dispatch();
+            }
         }
 
     }

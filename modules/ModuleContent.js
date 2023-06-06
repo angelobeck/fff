@@ -1,5 +1,9 @@
 
 class ModuleContent extends Module {
-    template = ``
+    template = `<markdown value={content} />`;
+
+    get content() {
+        return application.data.content;
+    }
 
 }

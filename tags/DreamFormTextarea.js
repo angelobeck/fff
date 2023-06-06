@@ -8,38 +8,20 @@ class DreamFormTextarea extends Module {
     </div>
     `;
 
-    #control = {
-        action: false,
-        filter: "text",
-        label: "",
-        required: false,
-        target: false,
-        value: ""
-    }
-
-    set control(control) {
-        const fields = ["action", "filter", "label", "required", "target", "value"];
-        while (fields.length > 0) {
-            const name = fields.shift();
-            if (control[name]) {
-                this.#control[name] = control[name];
-            }
-        }
-    }
+    value = "";
+    control = {};
 
     onchange = (event) => { };
 
     get label() {
-        return this.#control.label;
-    }
-
-    get value() {
-        return this.#control.value;
+        return this.control.label || "";
     }
 
     handleKeyDown(event) {
-        this.#control.value = event.currentTarget.value;
-        this.onchange({ detail: this.#control });
+        this.value = event.currentTarget.value;
+        this.onchange({
+            detail: this
+        });
     }
 
 }

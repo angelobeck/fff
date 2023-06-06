@@ -6,7 +6,7 @@ class FilterLanguages extends Filter {
         var value = formulary.getField(target);
         if (typeof (value) === "string") {
             return page.unescapeString(value);
-        }else if(value === undefined) {
+        } else if (value === undefined) {
             return "";
         }
         if (value[page.lang]) {
@@ -15,17 +15,17 @@ class FilterLanguages extends Filter {
         return "";
     }
 
-    static update(control, formulary) {
+    static update(control, formulary, component) {
         var target = control.target;
-        var updated = page.escapeString(control.value);
-        var value = formulary.getField(target);
-        if (value === undefined || typeof (value) === "string") {
-            value = {};
-            value[page.lang] = updated;
+        var updated = page.escapeString(component.value);
+        var field = formulary.getField(target);
+        if (field === undefined || typeof (field) === "string") {
+            field = {};
+            field[page.lang] = updated;
         } else {
-            value[page.lang] = updated;
+            field[page.lang] = updated;
         }
-        formulary.setField(target, value);
+        formulary.setField(target, field);
     }
 
     static isValid(control, data) {

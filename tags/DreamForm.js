@@ -2,12 +2,18 @@
 class DreamForm extends Module {
     template = `
     <div for:each={iterableFields} for:item={item}>
-<mod name={item.name} control={item.control} onchange={handleChange} />
+<mod 
+name={item.name} 
+control={item.control} 
+value={item.value} 
+onchange={handleChange} 
+/>
     </div>
     `;
 
     #data = {};
     controls = [];
+    commands = ["command-save", "command-cancel"];
     actions = {};
 
     set data(data) {
@@ -19,7 +25,8 @@ class DreamForm extends Module {
     }
 
     handleChange(event) {
-        const control = event.detail;
+        var component = event.detail;
+        var control = component.control;
         if (control.action) {
             if (this.actions[control.action]) {
                 this.actions[control.action]();
@@ -27,23 +34,36 @@ class DreamForm extends Module {
             return;
         }
         if (control.filter && filtersList[control.filter]) {
-            filtersList[control.filter].update(control, this);
-        } else if (control.target) {
-            this.#data[control.target] = control.value;
+            filtersList[control.filter].update(control, this, component);
         }
     }
 
     get iterableFields() {
-        return this.controls.map(control => {
+        var fields = this.controls.map((control, index) => {
+            if (typeof (control) === "string") {
+                control = store.controls.openByName(control);
+            }
+            var value = "";
             if (control.filter && filtersList[control.filter]) {
-                control.value = filtersList[control.filter].create(control, this);
+                value = filtersList[control.filter].create(control, this);
             }
             var name = "dream-form-" + control.type;
             return {
                 name: name,
-                control: control
+                control: control,
+                value: value
             };
         });
+
+        if (this.commands.length > 0) {
+            fields.push({
+                name: "dream-form-command-group",
+                value: "",
+                control: { children: this.commands }
+            });
+        }
+
+        return fields;
     }
 
     getField(target) {

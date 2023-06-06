@@ -18,8 +18,10 @@ function messageAny(fromAny) {
         return messageObject(fromAny);
     } else if (typeof (fromAny) === "string") {
         return '"' + fromAny + '"';
-    } else {
+    } else if (typeof (fromAny) === "number") {
         return fromAny.toString();
+    } else {
+        return "unknown";
     }
 }
 
