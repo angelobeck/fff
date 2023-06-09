@@ -2,7 +2,7 @@
 class App_sectionCreate extends ApplicationHelper {
     static name = "-section-create";
 
-    static childrenNames(me)  {
+    static childrenNames(me) {
         return [];
     }
 
@@ -13,9 +13,14 @@ class App_sectionCreate extends ApplicationHelper {
     static dispatch() {
 
         if (page.actions.create) {
-            var sectionType = "section";
-            if(page.actions.create.length > 1 && sectionHelpersList[page.actions.create[1]]) {
+            var sectionType;
+            var sectionHelper;
+            if (page.actions.create.length > 1 && sectionHelpersList[page.actions.create[1]]) {
                 sectionType = page.actions.create[1];
+                sectionHelper = sectionHelpersList[page.actions.create[1]];
+            } else {
+                sectionType = "folder";
+                sectionHelper = SectionFolder_App;
             }
             var form = new DreamForm();
             form.actions.save = () => {
@@ -34,6 +39,10 @@ class App_sectionCreate extends ApplicationHelper {
                 page.navigateTo(application.parent.path);
             };
             form.controls = store.controls.openByName("section-create").children;
+            if (sectionHelper.editControls) {
+                form.controls = [...form.controls, ...sectionHelper.editControls];
+            }
+
             page.modules.main.namesList = ["formulary"];
             page.modules.formulary = form;
         } else {

@@ -9,6 +9,7 @@ class Application {
     #childrenIsLoaded = false;
     #childrenByName = {};
     sectionHelper;
+    map = [];
 
     constructor(parent, name, helper) {
         this.parent = parent;
@@ -17,6 +18,9 @@ class Application {
         if (parent && name !== "-index") {
             this.path = [...parent.path, name];
         }
+        if(this.#helper.map) {
+            this.map = this.#helper.map;
+        }
         this.#helper.constructorHelper(this);
     }
 
@@ -24,8 +28,8 @@ class Application {
         if (this.#childrenByName[name]) {
             return this.#childrenByName[name];
         }
-        for (let i = 0; i < this.#helper.map.length; i++) {
-            var helper = this.#helper.map[i];
+        for (let i = 0; i < this.map.length; i++) {
+            var helper = this.map[i];
             if (helper.isChild(this, name)) {
                 this.#childrenByName[name] = new Application(this, name, helper);
                 return this.#childrenByName[name];
@@ -38,8 +42,8 @@ class Application {
         if (this.#childrenIsLoaded) {
             return this.#children;
         }
-        for (let i = 0; i < this.#helper.map.length; i++) {
-            var helper = this.#helper.map[i];
+        for (let i = 0; i < this.map.length; i++) {
+            var helper = this.map[i];
             let names = helper.childrenNames(this);
             for (let n = 0; n < names.length; n++) {
                 let name = names[n];

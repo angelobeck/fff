@@ -25,8 +25,11 @@ class App_section extends ApplicationHelper {
         me.data = store.domainContent.openByName(me.name);
         if (me.data.sectionType && sectionHelpersList[me.data.sectionType]) {
             me.sectionHelper = sectionHelpersList[me.data.sectionType];
-            me.sectionHelper.constructorHelper(me);
+        } else {
+            me.sectionHelper = SectionFolder_App;
         }
+        me.sectionHelper.constructorHelper(me);
+
     }
 
     static dispatch() {
@@ -59,7 +62,11 @@ class App_section extends ApplicationHelper {
             form.actions.cancel = () => {
                 page.navigateTo();
             };
+
             form.controls = store.controls.openByName("section-edit").children;
+            if (application.sectionHelper.editControls) {
+                form.controls = [...form.controls, ...application.sectionHelper.editControls];
+            }
             page.modules.main.namesList = ["formulary"];
             page.modules.formulary = form;
         }
