@@ -9,7 +9,7 @@ class ModuleMenu extends Module {
         var children = root.children;
         for (let i = 0; i < children.length; i++) {
             let currentApplication = children[i];
-            if(currentApplication.data.menu_hidden) {
+            if (currentApplication.data.menu_hidden) {
                 continue;
             }
             result.push({

@@ -62,6 +62,9 @@ class NodeElement extends Node {
                 continue;
             } else {
                 const value = this.render.getComponentProperty(path);
+                if (!value) {
+                    continue;
+                }
                 this.node.setAttribute(name, value);
             }
         }

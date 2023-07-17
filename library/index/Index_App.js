@@ -1,5 +1,5 @@
-
-class App_index extends ApplicationHelper {
+﻿
+class Index_App extends ApplicationHelper {
     static name = "-index";
     static constructorHelper(me) {
         me.data = store.domainContent.openByName("-index");

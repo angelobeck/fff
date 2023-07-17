@@ -5,6 +5,6 @@ class Filter {
 
     static update() { }
 
-    static isValid() {}
+    static isValid() { }
 
 }

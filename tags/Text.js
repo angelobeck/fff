@@ -4,8 +4,8 @@ class Text extends Module {
 
     value = "";
 
-get text() {
-    return page.unescapeString(page.selectLanguage(this.value));
-}
+    get text() {
+        return page.unescapeString(page.selectLanguage(this.value));
+    }
 
 }

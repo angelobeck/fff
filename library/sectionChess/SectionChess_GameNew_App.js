@@ -16,7 +16,7 @@ class SectionChess_GameNew_App extends ApplicationHelper {
             data.parentName = application.parent.name;
             store.domainContent.insert(data);
             application.parent.refresh();
-            page.navigateTo([...application.parent.path, data.name]);
+            page.navigateTo([...application.parent.path, data.name], true, "_setup");
         };
         form.actions.cancel = () => {
             page.navigateTo(application.parent.path);

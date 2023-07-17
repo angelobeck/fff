@@ -3,7 +3,7 @@ class NodeComponent extends Node {
     parentRender;
 
     create(parentElement, insertBeforeMe) {
-        if(!this.parentRender) {
+        if (!this.parentRender) {
             this.parentRender = this.render;
         }
         var component = new componentsList[this.value]();
@@ -11,7 +11,7 @@ class NodeComponent extends Node {
         var tokenizer = new Tokenizer(component.template);
         var tokens = tokenizer.tokenize();
         var parser = new Parser(tokens, this.render);
-        this.render.slot = this.children;
+        this.render.slot = this.children || [];
         this.children = parser.parse();
         this.createStaticAttributes();
         this.createDinamicAttributes();

@@ -25,15 +25,15 @@ class FilterFolderName extends Filter {
 
     static filterName(fromString) {
         var buffer = "";
-            var char;
-            for (let i = 0; i < fromString.length; i++) {
-                char = fromString.substring(i, i + 1);
-                if (buffer.length === 0 && /[a-z0-9]/.test(char)) {
-                    buffer += char;
-                } else if (buffer.length > 0 && /[a-z0-9_-]/.test(char)) {
-                    buffer += char;
-                }
+        var char;
+        for (let i = 0; i < fromString.length; i++) {
+            char = fromString.substring(i, i + 1);
+            if (buffer.length === 0 && /[a-z0-9]/.test(char)) {
+                buffer += char;
+            } else if (buffer.length > 0 && /[a-z0-9_-]/.test(char)) {
+                buffer += char;
             }
+        }
         return buffer;
     }
 

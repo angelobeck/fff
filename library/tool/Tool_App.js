@@ -1,9 +1,9 @@
 
 class Tool_App extends ApplicationHelper {
     static name = "-tools";
-    static map = [ToolConfig_App, ToolExport_App];
+    static map = ["toolConfig", "toolExport"];
 
-    static childrenNames(me)  {
+    static childrenNames(me) {
         return [];
     }
 

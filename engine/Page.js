@@ -3,9 +3,10 @@ class Page {
     rootNode;
     actions = {};
     lang = "pt";
+    globals = {};
 
     refresh() {
-
+        this.globals = {};
         this.modules = {};
         for (let name in modulesList) {
             this.modules[name] = modulesList[name];
@@ -67,7 +68,7 @@ class Page {
 
     escapeString(fromString) {
         return fromString.replace(/[#]/g, "#c")
-        .replace(/[\\]/g, "#b")
+            .replace(/[\\]/g, "#b")
             .replace(/\n/g, "#n")
             .replace(/["]/g, "#q");
     }

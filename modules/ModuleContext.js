@@ -4,11 +4,11 @@ class ModuleContext extends Module {
 <a tabindex="0" data-url={item.url} onclick={handleClick} aria-current={item.current} style="display:block"><text value={item.label} /></a>
 </div>`;
 
-onchange = () => {};
+    onchange = () => { };
 
-children = [];
+    children = [];
 
-get iterableMenu() {
+    get iterableMenu() {
         return this.children.map((item) => {
             return {
                 label: item.label,

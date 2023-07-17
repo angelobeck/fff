@@ -20,7 +20,7 @@ class Render {
         var node;
         for (index = 0; index < children.length; index++) {
             node = children[index];
-            if (node.dinamicAttributes["if:true"] || node.dinamicAttributes["if:false"]) {
+            if (node.dinamicAttributes && (node.dinamicAttributes["if:true"] || node.dinamicAttributes["if:false"])) {
                 node.conditionEndingComment = document.createComment("");
                 parentElement.insertBefore(node.conditionEndingComment, insertBeforeMe);
                 node.status = this.checkConditionStatus(node);

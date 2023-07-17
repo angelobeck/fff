@@ -1,18 +1,4 @@
 
-var root;
-var page;
-var application;
-var store = {};
-
-function startup() {
-    root = new Application(false, "-root", App_root);
-    page = new Page();
-    store.controls = new Store(data.controls);
-    store.domainContent = new Store(data.domainContent);
-    window.addEventListener("hashchange", route);
-    route();
-}
-
 var loaderIndex = 0;
 
 function loader() {

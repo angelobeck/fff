@@ -1,15 +1,15 @@
 
 class NodeTemplate extends Node {
     loopChildren = [];
-    endingComment = false;
+    endingElement = false;
 
     create(parentElement, insertBeforeMe) {
-        this.endingComment = document.createComment("");
-        parentElement.insertBefore(this.endingComment, insertBeforeMe);
+        this.endingElement = document.createTextNode("");
+        parentElement.insertBefore(this.endingElement, insertBeforeMe);
         if (this.dinamicAttributes["for:each"] && this.dinamicAttributes["for:item"]) {
-            this.createLoop(parentElement, this.endingComment);
+            this.createLoop(parentElement, this.endingElement);
         } else {
-            this.render.createChildren(this.children, parentElement, this.endingComment);
+            this.render.createChildren(this.children, parentElement, this.endingElement);
         }
     }
 
@@ -29,9 +29,9 @@ class NodeTemplate extends Node {
         } else {
             this.render.removeChildren(this.children);
         }
-        var parentElement = this.endingComment.parentElement;
-        parentElement.removeChild(this.endingComment);
-        this.endingComment = false;
+        var parentElement = this.endingElement.parentElement;
+        parentElement.removeChild(this.endingElement);
+        this.endingElement = false;
     }
 
     createLoop(parentElement, insertBeforeMe) {
@@ -51,7 +51,7 @@ class NodeTemplate extends Node {
     }
 
     refreshLoop() {
-        var parentElement = this.endingComment.parentElement;
+        var parentElement = this.endingElement.parentElement;
         var children;
         const loopIterator = this.render.getComponentProperty(this.dinamicAttributes["for:each"]);
         if (!Array.isArray(loopIterator)) {
@@ -72,7 +72,7 @@ class NodeTemplate extends Node {
             } else {
                 children = this.render.cloneChildren(this.children);
                 this.loopChildren.push(children);
-                this.render.createChildren(children, parentElement, this.endingComment);
+                this.render.createChildren(children, parentElement, this.endingElement);
             }
         }
     }

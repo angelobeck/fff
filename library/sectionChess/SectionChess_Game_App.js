@@ -20,7 +20,7 @@ class SectionChess_Game_App extends ApplicationHelper {
 
     static dispatch() {
         page.modules.context.children.push({
-            title: { pt: "Configurar", en: "Setup" },
+            label: { pt: "Configurar", en: "Setup" },
             url: page.url(true, true, "_setup"),
             current: page.actions.setup ? "page" : "false"
         });
@@ -36,7 +36,7 @@ class SectionChess_Game_App extends ApplicationHelper {
             form.actions.cancel = () => {
                 page.navigateTo();
             };
-            form.controls = store.controls.openByName("section-chess-setup").children;
+            form.controls = this.controls;
             page.modules.main.namesList = ["formulary"];
             page.modules.formulary = form;
         } else {
@@ -44,4 +44,32 @@ class SectionChess_Game_App extends ApplicationHelper {
         }
     }
 
+    static controls = [
+        {
+            type: "input",
+            filter: "text",
+            target: "white",
+            label: { pt: "Brancas", en: "White" }
+        },
+        {
+            type: "input",
+            filter: "text",
+            target: "black",
+            label: { pt: "Pretas", en: "Black" }
+        },
+        {
+            type: "input",
+            filter: "integer",
+            defaultValue: 45,
+            target: "timePerPlayer",
+            label: { pt: "Tempo por jogador (minutos)", en: "Time per player (minutes)" }
+        },
+        {
+            type: "input",
+            filter: "integer",
+            defaultValue: 30,
+            target: "incrementPerMove",
+            label: { pt: "Acréscimo por jogada (segundos)", en: "Increment per move (seconds)" }
+        }
+    ];
 }

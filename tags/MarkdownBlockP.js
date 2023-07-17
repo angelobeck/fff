@@ -1,4 +1,4 @@
 
 class MarkdownBlockP extends Module {
-    template = `<p>{value}</p>`;
+    template = `<p><markdown-inline value={value} /></p>`;
 }

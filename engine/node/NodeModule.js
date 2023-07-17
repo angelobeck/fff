@@ -1,16 +1,16 @@
 
 class NodeModule extends Node {
-    endingComment;
+    endingElement;
     moduleSymbol;
     parentRender;
 
     create(parentElement, insertBeforeMe) {
-        this.endingComment = document.createComment("");
-        parentElement.insertBefore(this.endingComment, insertBeforeMe);
         if (!this.parentRender) {
             this.parentRender = this.render;
         }
-        this.generateModule(parentElement, this.endingComment);
+        this.endingElement = document.createComment(" " + this.findMyName() + " ");
+        parentElement.insertBefore(this.endingElement, insertBeforeMe);
+        this.generateModule(parentElement, this.endingElement);
     }
 
     generateModule(parentElement, insertBeforeMe) {
@@ -56,15 +56,15 @@ class NodeModule extends Node {
         this.render.removeChildren(this.children);
         this.children = [];
         this.render.component.disconnectedCallback();
-        this.generateModule(this.endingComment.parentElement, this.endingComment);
+        this.generateModule(this.endingElement.parentElement, this.endingElement);
     }
 
     remove() {
         this.render.removeChildren(this.children);
         this.render.component.disconnectedCallback();
-        var parentElement = this.endingComment.parentElement;
-        parentElement.removeChild(this.endingComment);
-        this.endingComment = false;
+        var parentElement = this.endingElement.parentElement;
+        parentElement.removeChild(this.endingElement);
+        this.endingElement = false;
     }
 
     findMySymbol() {

@@ -11,9 +11,9 @@ class ModuleList extends Module {
     </div>
     </div>`;
 
-    get iterableList(){
+    get iterableList() {
         var children = application.children;
-        if(children.length === 0) {
+        if (children.length === 0) {
             return [];
         }
         return children.map((child) => {

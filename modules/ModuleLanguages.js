@@ -13,7 +13,7 @@ class ModuleLanguages extends Module {
     ];
 
     languagesLabel = { pt: "Idiomas", en: "Languages" };
-    
+
     get iterableMenu() {
         return this.languages.map(item => {
             return {

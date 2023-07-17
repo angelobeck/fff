@@ -31,7 +31,7 @@ function messageArray(fromArray) {
     }
     var buffer = "[";
     for (let i = 0; i < fromArray.length; i++) {
-        if(i > 0) {
+        if (i > 0) {
             buffer += ",";
         }
         buffer += "<br>" + messageAny(fromArray[i]);
@@ -45,15 +45,24 @@ function messageObject(fromObject) {
     for (var field in fromObject) {
         if (isFirstElement) {
             isFirstElement = false;
-        }else{
+        } else {
             buffer += ",";
         }
         buffer += "<br>";
         const value = fromObject[field];
         buffer += field + ": " + messageAny(value);
     }
-    if(!isFirstElement) {
+    if (!isFirstElement) {
         buffer += "<br>";
     }
     return buffer + "}";
+}
+
+function download(fileName, content, mime = 'text/javascript;charset=utf-8;') {
+    let blob = new Blob([content], { type: mime });
+    const link = window.document.createElement('A');
+    link.href = window.URL.createObjectURL(blob);
+    link.download = fileName;
+    link.click();
+    window.URL.revokeObjectURL(link.href);
 }

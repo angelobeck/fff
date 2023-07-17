@@ -13,5 +13,5 @@ class Module {
 
     connectedCallback() { }
     renderedCallback() { }
-    disconnectedCallback(){}
+    disconnectedCallback() { }
 }

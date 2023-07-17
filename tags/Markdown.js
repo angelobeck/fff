@@ -60,6 +60,41 @@ class Markdown extends Module {
             };
         }
 
+        function recognizeTag() {
+            var match = /^\s*\[([a-z][^\]]*)\]\s*$/.exec(lines[0]);
+            if (!match) {
+                return false;
+            }
+            var tagContent = match[1];
+            var parts = tagContent.split(":");
+            var tagName = "markdown-tag-" + parts[0];
+            if (!componentsList[tagName]) {
+                return false;
+            }
+            lines.shift();
+            if (!componentsList[tagName].closeTag) {
+                return {
+                    name: tagName,
+                    value: parts[1] || "",
+                    lazyParagraph: false
+                };
+            }
+
+            var value = [];
+            while (true) {
+                if (lines.length === 0 || lines[0].trim() === "[/" + parts[0] + "]") {
+                    lines.shift();
+                    return {
+                        name: tagName,
+                        value: value.join("\n"),
+                        lazyParagraph: false
+                    };
+                } else {
+                    value.push(lines.shift());
+                }
+            }
+        }
+
         function recognizeUnorderedList() {
             var items = [];
             while (true) {
@@ -114,6 +149,7 @@ class Markdown extends Module {
 
             block = recognizeCodefence()
                 || recognizeHeaders()
+                || recognizeTag()
                 || recognizeUnorderedList();
 
             if (block) {

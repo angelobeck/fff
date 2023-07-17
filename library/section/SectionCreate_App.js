@@ -1,5 +1,5 @@
 
-class App_sectionCreate extends ApplicationHelper {
+class SectionCreate_App extends ApplicationHelper {
     static name = "-section-create";
 
     static childrenNames(me) {
