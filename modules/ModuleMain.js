@@ -6,7 +6,7 @@ class ModuleMain extends Module {
     </template>
     `;
 
-    namesList = ["description", "content", "list", "linked"];
+    namesList = ["description", "content", "formulary", "list", "linked"];
 
     get iterableNames() {
         return this.namesList.map(item => {

@@ -4,7 +4,18 @@ var applicationsList = {
     index: Index_App,
     root: Root_App,
     section: Section_App,
-    sectionCreate: SectionCreate_App,
+    section_create: Section_Create_App,
+    sectionAccessibilityReview: SectionAccessibilityReview_App,
+    sectionAccessibilityReview_dashboard: SectionAccessibilityReview_Dashboard_App,
+    sectionAccessibilityReview_post: SectionAccessibilityReview_Post_App,
+    sectionAccessibilityReview_postNew: SectionAccessibilityReview_PostNew_App,
+    sectionAccessibilityReview_product: SectionAccessibilityReview_Product_App,
+    sectionAccessibilityReview_productNew: SectionAccessibilityReview_ProductNew_App,
+    sectionAccessibilityReview_team: SectionAccessibilityReview_Team_App,
+    sectionAccessibilityReview_teamNew: SectionAccessibilityReview_TeamNew_App,
+    sectionAccessibilityReview_teams: SectionAccessibilityReview_Teams_App,
+    sectionAccessibilityReview_ticket: SectionAccessibilityReview_Ticket_App,
+    sectionAccessibilityReview_ticketNew: SectionAccessibilityReview_TicketNew_App,
     sectionChess: SectionChess_App,
     sectionChess_Game: SectionChess_Game_App,
     sectionChess_GameNew: SectionChess_GameNew_App,
@@ -12,9 +23,6 @@ var applicationsList = {
     sectionSongbook: SectionSongbook_App,
     sectionSongbook_Post: SectionSongbook_Post_App,
     sectionSongbook_PostNew: SectionSongbook_PostNew_App,
-    sectionTreeNavigator: SectionTreeNavigator_App,
-    sectionTreeNavigator_Post: SectionTreeNavigator_Post_App,
-    sectionTreeNavigator_PostNew: SectionTreeNavigator_PostNew_App,
     tool: Tool_App,
     toolConfig: ToolConfig_App,
     toolExport: ToolExport_App
@@ -26,8 +34,10 @@ var componentsList = {
     "dream-form-checkbox": DreamFormCheckbox,
     "dream-form-command-group": DreamFormCommandGroup,
     "dream-form-input": DreamFormInput,
+    "dream-form-select": DreamFormSelect,
     "dream-form-textarea": DreamFormTextarea,
     "layout-modals": LayoutModals,
+    "layout-table": LayoutTable,
     "layout-tree": LayoutTree,
     "layout-tree-item": LayoutTreeItem,
     "markdown": Markdown,
@@ -72,9 +82,9 @@ var modulesList = {
 };
 
 var sectionHelpersList = {
+    accessibilityreview: SectionAccessibilityReview_App,
     chess: SectionChess_App,
     songbook: SectionSongbook_App,
-    treenavigator: SectionTreeNavigator_App
 };
 
 var setup = {

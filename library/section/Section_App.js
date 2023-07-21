@@ -1,6 +1,6 @@
 ﻿
 class Section_App extends ApplicationHelper {
-    static map = ["section", "sectionCreate"];
+    static map = ["section", "section_create"];
 
     static isChild(parent, name) {
         var data = store.domainContent.openByName(name);

@@ -122,11 +122,35 @@ class Store {
         return {};
     }
 
-    childrenNames(parentName) {
+    removeByName(name) {
+        var found = false;
+        do {
+            for (let index = 0; index < this.#cache.length; index++) {
+                const register = this.#cache[index];
+                if (register.name && register.parentName && register.parentName === name) {
+                    this.removeByName(register.name);
+                    found = true;
+                    break;
+                }
+            }
+        } while (found);
+
+        for (let index = 0; index < this.#cache.length; index++) {
+            const register = this.#cache[index];
+            if (register.name && register.name === name) {
+                this.#cache.splice(index, 1);
+                return;
+            }
+        }
+    }
+
+    childrenNames(parentName, type = false) {
         var names = [];
-        var children = this.query({
-            where: { parentName: parentName }
-        });
+        var where = { parentName: parentName };
+        if (type) {
+            where.type = type;
+        }
+        var children = this.query({ where: where });
         for (let i = 0; i < children.length; i++) {
             let data = children[i];
             if (data.name) {
@@ -147,5 +171,6 @@ class Store {
             name = register.parentName;
         }
     }
+
 
 }

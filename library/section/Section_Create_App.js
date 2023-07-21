@@ -1,5 +1,5 @@
 
-class SectionCreate_App extends ApplicationHelper {
+class Section_Create_App extends ApplicationHelper {
     static name = "-section-create";
 
     static childrenNames(me) {
@@ -25,6 +25,7 @@ class SectionCreate_App extends ApplicationHelper {
             var form = new DreamForm();
             form.actions.save = () => {
                 var data = form.data;
+                data.type = "section";
                 data.sectionType = sectionType;
                 if (application.parent.name === "-root") {
                     data.parentName = "";

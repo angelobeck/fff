@@ -30,6 +30,7 @@ class Index_App extends ApplicationHelper {
                 if (store.domainContent.openByName("-index").name) {
                     store.domainContent.update(data);
                 } else {
+                    data.type = "section";
                     data.name = "-index";
                     store.domainContent.insert(data);
                 }

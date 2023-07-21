@@ -15,16 +15,17 @@ class SectionCreate_ModuleList extends Module {
                 url: page.url(true, true, '_create-section')
             },
             {
+                label: { pt: "Novo revisor de acessibilidade", en: "New accessibility revisor" },
+                url: page.url(true, true, '_create-accessibilityreview')
+            },
+
+            {
                 label: { pt: "Novo jogo de xadrez", en: "New chess game" },
                 url: page.url(true, true, '_create-chess')
             },
             {
                 label: { pt: "Nova pasta de música", en: "New songbook" },
                 url: page.url(true, true, '_create-songbook')
-            },
-            {
-                label: { pt: "Novo navegador em árvore", en: "New tree navigator" },
-                url: page.url(true, true, '_create-treenavigator')
             }
         ];
     }

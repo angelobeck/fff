@@ -29,6 +29,9 @@ class Application {
             return this.#childrenByName[name];
         }
         for (let i = 0; i < this.map.length; i++) {
+            if (!applicationsList[this.map[i]]) {
+                continue;
+            }
             var helper = applicationsList[this.map[i]];
             if (helper.isChild(this, name)) {
                 this.#childrenByName[name] = new Application(this, name, helper);
@@ -43,6 +46,9 @@ class Application {
             return this.#children;
         }
         for (let i = 0; i < this.map.length; i++) {
+            if (!applicationsList[this.map[i]]) {
+                continue;
+            }
             var helper = applicationsList[this.map[i]];
             let names = helper.childrenNames(this);
             for (let n = 0; n < names.length; n++) {

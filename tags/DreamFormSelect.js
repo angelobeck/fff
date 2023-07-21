@@ -2,15 +2,37 @@
 class DreamFormSelect extends Module {
     template = `
     <div>
-    <label><text value={label} />
-
+    <label><text value={label} /><br />
+<select for:each={iterableOptions} for:item={option}  onchange={handleChange}>
+<option value={option.value} selected={option.selected}><text value={option.label} /></option>
+</select>
     </label>
     </div>
     `;
 
     value = "";
     control = {};
-    inputElement;
+
+    get iterableOptions() {
+        if (!Array.isArray(this.control.children) || this.control.children.length === 0) {
+            return [];
+        }
+
+        return this.control.children.map(item => {
+            if (typeof (item) === "string") {
+                return {
+                    value: item,
+                    label: item,
+                    selected: item === this.value
+                };
+            }
+            return {
+                value: item.value,
+                label: item.label || item.value,
+                selected: item.value === this.value
+            };
+        });
+    }
 
     onchange = (event) => { };
 
@@ -18,7 +40,7 @@ class DreamFormSelect extends Module {
         return this.control.label || "";
     }
 
-    handleKeyDown(event) {
+    handleChange(event) {
         this.value = event.currentTarget.value;
         this.onchange({
             detail: this

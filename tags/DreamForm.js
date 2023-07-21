@@ -1,6 +1,7 @@
 
 class DreamForm extends Module {
     template = `
+<template if:true={controls}>
     <div for:each={iterableFields} for:item={item}>
 <mod 
 name={item.name} 
@@ -9,6 +10,7 @@ value={item.value}
 onchange={handleChange} 
 />
     </div>
+</template>
     `;
 
     #data = {};

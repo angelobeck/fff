@@ -4,7 +4,7 @@ class LayoutModals extends Module {
 <div wire:element={layoutElement}>
 <slot />
 <div>
-<button onclick={menuSwitch} aria-expanded={menuExpanded}>"menu"</button>
+<button onclick={menuSwitch} aria-expanded={menuExpanded}>menu</button>
 </div>
 </div>
 <div if:true={menuExpanded}>
