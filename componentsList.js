@@ -6,6 +6,9 @@ var applicationsList = {
     section: Section_App,
     section_create: Section_Create_App,
     sectionAccessibilityReview: SectionAccessibilityReview_App,
+    sectionAccessibilityReview_categories: SectionAccessibilityReview_Categories_App,
+    sectionAccessibilityReview_category: SectionAccessibilityReview_Category_App,
+    sectionAccessibilityReview_categoryNew: SectionAccessibilityReview_CategoryNew_App,
     sectionAccessibilityReview_dashboard: SectionAccessibilityReview_Dashboard_App,
     sectionAccessibilityReview_post: SectionAccessibilityReview_Post_App,
     sectionAccessibilityReview_postNew: SectionAccessibilityReview_PostNew_App,
@@ -62,9 +65,11 @@ var componentsList = {
 };
 
 var filtersList = {
+category: FilterCategory,
     folderName: FilterFolderName,
     languages: FilterLanguages,
     integer: FilterInteger,
+team: FilterTeam,
     text: FilterText
 };
 

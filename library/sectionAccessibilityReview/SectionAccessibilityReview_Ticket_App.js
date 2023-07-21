@@ -52,6 +52,7 @@ class SectionAccessibilityReview_Ticket_App extends ApplicationHelper {
         "edit-title",
         "edit-name",
         "edit-content",
+        "edit-category",
         {
             name: "gravity",
             type: "select",

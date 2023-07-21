@@ -58,77 +58,20 @@ class SectionAccessibilityReview_Post_App extends ApplicationHelper {
 
             page.modules.linked = new SectionAccessibilityReview_Post_ModuleList();
 
-            if (!application.data.reviewStatus) {
-                var form = new DreamForm();
-
-                form.actions.save = () => {
-                    this.generateReviewRegisters(form.data);
-                    application.data.reviewStatus = "done";
-                    store.domainContent.update(application.data);
-                    application.refresh();
-                    page.navigateTo();
-                };
-                form.actions.cancel = () => {
-                    application.data.reviewStatus = "done";
-                    store.domainContent.update(application.data);
-                    page.navigateTo();
-                };
-                form.controls = [...this.reviewControls, "edit-save"];
-                page.modules.formulary = form;
-            }
-        }
-    }
-
-    static generateReviewRegisters(formData) {
-        for (let i = 0; i < this.reviewControls.length; i++) {
-            const control = this.reviewControls[i];
-            if (formData[control.target]) {
-                let data = {
-                    name: application.name + "_-_" + control.name,
-                    parentName: application.name,
-                    title: control.label,
-                    content: { pt: formData[control.target] },
-                    type: "accessibilityReview",
-                    gravity: control.gravity,
-                    created: page.currentDate(),
-                    updated: page.currentDate()
-                };
-                store.domainContent.insert(data);
-            }
         }
     }
 
     static editControls = [
         "edit-title",
         "edit-name",
+{
+name: "resource",
+type: "input",
+filter: "text",
+label: {pt: "URL", en: "URL"},
+target: "resource"
+},
+"edit-team",
         "edit-content"
     ];
-
-    static reviewControls = [
-        {
-            name: "window_title",
-            type: "input",
-            filter: "text",
-            label: { pt: "Título da janela", en: "Window title" },
-            target: "window_title",
-            gravity: "medium"
-        },
-        {
-            name: "page_title",
-            type: "input",
-            filter: "text",
-            label: { pt: "Cabeçalho principal", en: "Main header" },
-            target: "page_title",
-            gravity: "medium"
-        },
-        {
-            name: "content_errors",
-            type: "textarea",
-            filter: "text",
-            label: { pt: "Erros no conteúdo", en: "Content errors" },
-            target: "content_errors",
-            gravity: "low"
-        },
-    ];
-
 }

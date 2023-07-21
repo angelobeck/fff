@@ -72,6 +72,20 @@ data.controls = [
         label: { pt: "Conteúdo", en: "Content" },
         target: "content"
     },
+{
+name: "edit-category",
+type: "select",
+filter: "category",
+label: {pt: "Categoria", en: "Category"},
+target: "category"
+},
+{
+name: "edit-team",
+type: "select",
+filter: "team",
+label: {pt: "Equipe", en: "Team"},
+target: "team"
+},
     {
         name: "command-save",
         type: "button",

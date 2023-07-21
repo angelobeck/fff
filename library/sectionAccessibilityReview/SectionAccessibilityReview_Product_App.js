@@ -63,6 +63,7 @@ class SectionAccessibilityReview_Product_App extends ApplicationHelper {
     static editControls = [
         "edit-title",
         "edit-name",
+        "edit-team",
         "edit-content"
     ];
 }

@@ -11,6 +11,9 @@ class SectionAccessibilityReview_PostNew_App extends ApplicationHelper {
     static dispatch() {
 
         var form = new DreamForm();
+if(application.parent.data.team) {
+form.data.team = application.parent.data.team;
+}
         form.actions.save = () => {
             var data = form.data;
             data.parentName = application.parent.name;

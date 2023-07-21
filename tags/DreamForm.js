@@ -46,13 +46,15 @@ onchange={handleChange}
                 control = store.controls.openByName(control);
             }
             var value = "";
+var generatedControl = control;
             if (control.filter && filtersList[control.filter]) {
-                value = filtersList[control.filter].create(control, this);
+ generatedControl = filtersList[control.filter].generateControl(control);
+                value = filtersList[control.filter].create(generatedControl, this);
             }
             var name = "dream-form-" + control.type;
             return {
                 name: name,
-                control: control,
+                control: generatedControl,
                 value: value
             };
         });
