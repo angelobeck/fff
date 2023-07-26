@@ -49,9 +49,6 @@ class SectionAccessibilityReview_Ticket_App extends ApplicationHelper {
     }
 
     static editControls = [
-        "edit-title",
-        "edit-name",
-        "edit-content",
         "edit-category",
         {
             name: "gravity",
@@ -64,7 +61,9 @@ class SectionAccessibilityReview_Ticket_App extends ApplicationHelper {
                 { value: "medium", label: { pt: "média", en: "medium" } },
                 { value: "hi", label: { pt: "alta", en: "hi" } }
             ]
-        }
+        },
+        "edit-description",
+        "edit-content"
     ];
 
 }

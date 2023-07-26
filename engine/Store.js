@@ -109,6 +109,13 @@ class Store {
     }
 
     insert(row) {
+        if (!row.name) {
+            let counter = this.#cache.length;
+            while (this.openByName(counter.toString()).name) {
+                counter++;
+            }
+            row.name = counter.toString();
+        }
         this.#cache.push(row);
     }
 
