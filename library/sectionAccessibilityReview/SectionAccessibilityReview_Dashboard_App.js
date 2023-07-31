@@ -1,6 +1,7 @@
 
 class SectionAccessibilityReview_Dashboard_App extends ApplicationHelper {
     static name = "-dashboard";
+    static map = ["sectionAccessibilityReview_ticket"];
 
     static constructorHelper(me) {
         me.data = {

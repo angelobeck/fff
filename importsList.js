@@ -63,6 +63,7 @@ var importsList = [
     "library/tool/ToolExport_App.js",
     "library/tool/Tool_App.js",
     "library/root/Root_App.js",
+    "modules/ModuleBreadCrumbs.js",
     "modules/ModuleContent.js",
     "modules/ModuleContext.js",
     "modules/ModuleDescription.js",

@@ -1,24 +1,26 @@
 
 class FilterCategory extends Filter {
 
-static generateControl(control) {
-control.children = [];
-var teams = store.domainContent.query({where: {type: "category"}});
-teams.forEach(data => {
-control.children.push({
-value: data.name,
-label: data.title
-});
-});
+    static generateControl(control) {
+        control.children = [];
+        var teams = store.domainContent.query({ where: { type: "category" } });
+        teams.forEach(data => {
+            control.children.push({
+                value: data.name,
+                label: data.title
+            });
+        });
 
-return control;
-}
+        return control;
+    }
 
     static create(control, formulary) {
         var target = control.target;
         var value = formulary.getField(target);
         if (typeof (value) === "string") {
             return value;
+        } else if (control.children && control.children.length > 0) {
+            return control.children[0].value;
         } else {
             return "";
         }
@@ -26,7 +28,7 @@ return control;
 
     static update(control, formulary, component) {
         var target = control.target;
-        var updated = this.filterName(component.value);
+        var updated = component.value;
         formulary.setField(target, updated);
         component.value = updated;
         component.refresh();
@@ -34,20 +36,6 @@ return control;
 
     static isValid(control, data) {
         return true;
-    }
-
-    static filterName(fromString) {
-        var buffer = "";
-        var char;
-        for (let i = 0; i < fromString.length; i++) {
-            char = fromString.substring(i, i + 1);
-            if (buffer.length === 0 && /[a-z0-9]/.test(char)) {
-                buffer += char;
-            } else if (buffer.length > 0 && /[a-z0-9_-]/.test(char)) {
-                buffer += char;
-            }
-        }
-        return buffer;
     }
 
 }

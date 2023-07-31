@@ -2,8 +2,8 @@
 class ModuleLayout extends Module {
     template = `
 <div wire:element={layoutElement}>
-<mod name="languages" />
 <mod name="menu" />
+<mod name="breadcrumbs" />
 <mod name="title" nofocus={menuExpanded} />
 <mod name="main" />
 <div>

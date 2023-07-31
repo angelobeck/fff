@@ -3,13 +3,14 @@ class DreamFormSelect extends Module {
     template = `
     <div>
     <label><text value={label} /><br />
-<select for:each={iterableOptions} for:item={option}  onchange={handleChange}>
+<select wire:element={selectElement} for:each={iterableOptions} for:item={option}  onchange={handleChange}>
 <option value={option.value} selected={option.selected}><text value={option.label} /></option>
 </select>
     </label>
     </div>
     `;
 
+    selectElement = false;
     value = "";
     control = {};
 

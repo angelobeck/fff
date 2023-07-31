@@ -132,12 +132,12 @@ class Store {
     removeByName(name) {
         var found = false;
         do {
+            found = false;
             for (let index = 0; index < this.#cache.length; index++) {
                 const register = this.#cache[index];
                 if (register.name && register.parentName && register.parentName === name) {
                     this.removeByName(register.name);
                     found = true;
-                    break;
                 }
             }
         } while (found);

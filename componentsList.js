@@ -74,6 +74,7 @@ team: FilterTeam,
 };
 
 var modulesList = {
+    breadcrumbs: ModuleBreadCrumbs,
     content: ModuleContent,
     description: ModuleDescription,
     languages: ModuleLanguages,

@@ -3,7 +3,7 @@ class SectionAccessibilityReview_Ticket_App extends ApplicationHelper {
 
     static isChild(parent, name) {
         var data = store.domainContent.openByName(name);
-        if (data.parentName === parent.name && data.type === "accessibilityReview") {
+        if (data.type === "accessibilityReview") {
             return true;
         } else {
             return false;
@@ -16,7 +16,9 @@ class SectionAccessibilityReview_Ticket_App extends ApplicationHelper {
     }
 
     static constructorHelper(me) {
-        me.data = store.domainContent.openByName(me.name);
+        me.data = {
+            title: {pt: "ocorrência", en:"ticket"}
+        };
     }
 
     static dispatch() {
@@ -34,9 +36,8 @@ class SectionAccessibilityReview_Ticket_App extends ApplicationHelper {
         }
 
         var form = new DreamForm();
-        form.data = application.data;
+        form.data = store.domainContent.openByName(application.name);
         form.actions.save = () => {
-            application.data = form.data;
             store.domainContent.update(form.data);
             application.parent.refresh();
             page.navigateTo(application.parent.path);

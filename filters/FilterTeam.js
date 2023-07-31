@@ -19,6 +19,8 @@ return control;
         var value = formulary.getField(target);
         if (typeof (value) === "string") {
             return value;
+        } else if (control.children && control.children.length > 0) {
+            return control.children[0].value;
         } else {
             return "";
         }
