@@ -47,4 +47,4 @@ class LayoutModals extends Module {
         this.menuButtonElement.focus();
     }
 
-}
+    }
