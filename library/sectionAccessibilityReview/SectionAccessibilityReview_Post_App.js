@@ -33,6 +33,12 @@ class SectionAccessibilityReview_Post_App extends ApplicationHelper {
             url: page.url(true, true, "_remove-item"),
         });
 
+        page.modules.context.children.push({
+            label: { pt: "Nova análize de acessibilidade", en: "New accessibility analisis" },
+            url: page.url(true, true, "_analysis"),
+            current: page.actions.analysis ? "page" : "false"
+        });
+
         if (page.actions.remove) {
             store.domainContent.removeByName(application.name);
             application.parent.refresh();
@@ -43,6 +49,7 @@ class SectionAccessibilityReview_Post_App extends ApplicationHelper {
         if (page.actions.edit) {
             var form = new DreamForm();
             form.data = application.data;
+            form.data.lastAnalysis = page.currentDate();
             form.actions.save = () => {
                 application.data = form.data;
                 store.domainContent.update(form.data);
@@ -52,6 +59,20 @@ class SectionAccessibilityReview_Post_App extends ApplicationHelper {
                 page.navigateTo();
             };
             form.controls = this.editControls;
+            page.modules.main.namesList = ["formulary"];
+            page.modules.formulary = form;
+        } if (page.actions.analysis) {
+            var form = new DreamForm();
+            form.data = application.data;
+            form.actions.save = () => {
+                application.data = form.data;
+                store.domainContent.update(form.data);
+                page.navigateTo();
+            };
+            form.actions.cancel = () => {
+                page.navigateTo();
+            };
+            form.controls = this.analysisControls;
             page.modules.main.namesList = ["formulary"];
             page.modules.formulary = form;
         } else {
@@ -64,14 +85,25 @@ class SectionAccessibilityReview_Post_App extends ApplicationHelper {
     static editControls = [
         "edit-title",
         "edit-name",
-{
-name: "resource",
-type: "input",
-filter: "text",
-label: {pt: "URL", en: "URL"},
-target: "resource"
-},
-"edit-team",
+        {
+            name: "resource",
+            type: "input",
+            filter: "text",
+            label: { pt: "URL", en: "URL" },
+            target: "resource"
+        },
+        "edit-team",
         "edit-content"
     ];
+
+    static analysisControls = [
+        {
+            name: "analysis_date",
+            type: "input",
+            filter: "text",
+            label: { pt: "Última análize", en: "Last analysis" },
+            target: "lastAnalysis"
+        }
+    ]
+
 }
