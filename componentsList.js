@@ -83,6 +83,7 @@ var modulesList = {
     list: ModuleList,
     menu: ModuleMenu,
     paginator: ModulePaginator,
+    rumperstilshen: ModuleRumperstilshen,
     title: ModuleTitle,
     tools: ModuleTools
 };

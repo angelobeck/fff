@@ -1,50 +1,78 @@
 ﻿
 class LayoutModals extends Module {
+
     template = `
-<div wire:element={layoutElement}>
-<slot />
-<div>
-<button onclick={menuSwitch} aria-expanded={menuExpanded}>menu</button>
-</div>
-</div>
-<div if:true={menuExpanded}>
-<div tabindex="0" onfocus={focusOnLastElement}></div>
-<h2  tabindex="0" wire:element={menuTitleElement}><text value={menuLabel} /></h2>
-<mod name="context" onchange={menuSwitch} />
-<mod name="tools" onchange={menuSwitch} />
-<hr />
-<button wire:element={menuButtonElement} onclick={menuSwitch}><text value={closeLabel} /></button>
-<div tabindex="0" onfocus={focusOnFirstElement}></div>
-</div>
-`;
+    <div aria-hidden={layoutHidden} class="layout">
+    <slot />
+    </div>
+    <template for:each={modalsIterableList} for:item={modal}>
+    <div class="modal-background" aria-hidden={modal.hidden}>
+    <div class="modal-box">
+    <div tabindex="0" onfocus={focusOnLastElement} />
+    <h1 wire:element={modalHeaderElement} tabindex="0" class="modal-header"><text value={modal.title} /></h1>
+    <mod name={modal.name} />
+    <div
+    aria-label={modalCloseLabel}
+    class="modal-close-button"
+    onclick={closeModal}
+    onkeydown={closeKeyDown}
+    role="button"
+    tabindex="0"
+    >x</div>
+    <div tabindex="0" onfocus={focusOnFirstElement} />
+    </div>
+    </div>
+    </template>
+    `;
 
-    menuExpanded = false;
-    menuTitleElement;
-    menuButtonElement;
-    layouteElement;
-    menuLabel = { pt: "Opções", en: "Options" };
-    closeLabel = { pt: "Fechar", en: "Close" };
+    modals = [];
 
-    menuSwitch() {
-        this.menuExpanded = !this.menuExpanded;
-        if (!this.menuExpanded) {
-            this.layoutElement.setAttribute("aria-hidden", false);
-        }
+    modalTitleElement;
+
+    get modalCloseLabel() {
+        return page.selectLanguage({ pt: "Fechar", en: "Close" });
+    }
+
+    get layoutHidden() {
+        return this.modals.length > 0;
+    }
+
+    get modalsIterableList() {
+        return this.modals.map((modal, index) => {
+            return {
+                title: modal.title,
+                name: modal.name,
+                hidden: index + 1 < this.modals.length
+            };
+        });
     }
 
     renderedCallback() {
-        if (this.menuExpanded) {
-            this.menuTitleElement.focus();
-            this.layoutElement.setAttribute("aria-hidden", true);
+        if (this.modals.length > 0) {
+            this.modalHeaderElement.focus();
         }
     }
 
-    focusOnFirstElement() {
-        this.menuTitleElement.focus();
+    focusOnLastElement(event) {
+        var element = event.currentTarget;
+        element.parentElement.lastElementChild.previousElementSibling.focus();
     }
 
-    focusOnLastElement() {
-        this.menuButtonElement.focus();
+    focusOnFirstElement(event) {
+        var element = event.currentTarget;
+        element.parentElement.firstElementChild.nextElementSibling.focus();
     }
 
+    closeModal() {
+        this.modals.pop();
+        this.refresh();
     }
+
+    closeKeyDown(event) {
+        if (event.key === "Enter" || event.key === " ") {
+            this.modals.pop();
+            this.refresh();
+        }
+    }
+
+}

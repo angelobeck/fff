@@ -74,6 +74,7 @@ var importsList = [
     "modules/ModuleMain.js",
     "modules/ModuleMenu.js",
     "modules/ModuleRoot.js",
+    "modules/ModuleRumperstilshen.js",
     "modules/ModulePaginator.js",
     "modules/ModuleTitle.js",
     "modules/ModuleTools.js",

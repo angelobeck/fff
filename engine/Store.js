@@ -99,6 +99,7 @@ class Store {
             return;
         }
         var name = register.name;
+        register.updated = page.currentDate();
         for (let index = 0; index < this.#cache.length; index++) {
             const current = this.#cache[index];
             if (current.name && current.name === name) {
@@ -116,6 +117,9 @@ class Store {
             }
             row.name = counter.toString();
         }
+
+        row.created = page.currentDate();
+        row.updated = row.created;
         this.#cache.push(row);
     }
 
