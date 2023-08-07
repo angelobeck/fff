@@ -14,6 +14,7 @@ class Page {
 
         this.modules.context = new ModuleContext();
         this.modules.main = new ModuleMain();
+        Modals.children = [];
 
         application.dispatch();
 

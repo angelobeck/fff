@@ -1,4 +1,25 @@
 ﻿
+class Modals {
+    static children = [];
+    static instance = false;
+
+    static push(modal) {
+        this.children.push(modal);
+        if (this.instance) {
+            this.instance.refresh();
+        }
+    }
+
+    static pop(modal) {
+        var modal = this.children.pop();
+        if (this.instance) {
+            this.instance.refresh();
+        }
+        return modal;
+    }
+
+}
+
 class LayoutModals extends Module {
 
     template = `
@@ -25,8 +46,6 @@ class LayoutModals extends Module {
     </template>
     `;
 
-    modals = [];
-
     modalTitleElement;
 
     get modalCloseLabel() {
@@ -34,21 +53,21 @@ class LayoutModals extends Module {
     }
 
     get layoutHidden() {
-        return this.modals.length > 0;
+        return Modals.children.length > 0;
     }
 
     get modalsIterableList() {
-        return this.modals.map((modal, index) => {
+        return Modals.children.map((modal, index) => {
             return {
                 title: modal.title,
                 name: modal.name,
-                hidden: index + 1 < this.modals.length
+                hidden: index + 1 < Modals.children.length
             };
         });
     }
 
     renderedCallback() {
-        if (this.modals.length > 0) {
+        if (Modals.children.length > 0) {
             this.modalHeaderElement.focus();
         }
     }
@@ -64,15 +83,20 @@ class LayoutModals extends Module {
     }
 
     closeModal() {
-        this.modals.pop();
-        this.refresh();
+        Modals.pop();
     }
 
     closeKeyDown(event) {
         if (event.key === "Enter" || event.key === " ") {
-            this.modals.pop();
-            this.refresh();
+            Modals.pop();
         }
     }
 
+    connectedCallback() {
+        Modals.instance = this;
+    }
+
+    disconnectedCallback() {
+        Modals.instance = false;
+    }
 }

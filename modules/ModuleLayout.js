@@ -1,7 +1,7 @@
 
 class ModuleLayout extends Module {
     template = `
-    <layout-modals modals={modals}>
+    <layout-modals>
 <mod name="menu" />
 <mod name="breadcrumbs" />
 <mod name="title" nofocus={menuExpanded} />
@@ -10,14 +10,11 @@ class ModuleLayout extends Module {
 </layout-modals>
 `;
 
-    modals = [];
-
     openMenu() {
-        this.modals.push({
+        Modals.push({
             title: { pt: "Opções", en: "Options" },
-            name: "humperstilshen"
+            name: "rumperstilshen"
         });
-        this.refresh();
     }
 
 }

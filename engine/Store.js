@@ -1,25 +1,66 @@
 
 class Store {
     #cache = [];
+    #indexByParentName = false;
+    #removeIndexList;
 
     constructor(data) {
         this.#cache = data;
+        this.#generateIndex();
+    }
+
+    #generateIndex() {
+        this.#indexByParentName = {};
+        var parentName;
+        var length = this.#cache.length;
+        for (let index = 0; index < length; index++) {
+            const row = this.#cache[index];
+            if (!row.parentName || row.parentName === "") {
+                parentName = "-index";
+            } else {
+                parentName = row.parentName;
+            }
+            if (!this.#indexByParentName[parentName]) {
+                this.#indexByParentName[parentName] = [index];
+            } else {
+                this.#indexByParentName[parentName].push(index);
+            }
+        }
     }
 
     query(query) {
+        var searchOnIndex = false;
+        var length = this.#cache.length;
         var result = [];
         var counter = 0;
         var limit = query.limit || 0;
         var offset = query.offset || 0;
         var sort_by = query.sort_by || "";
         var direction = query.direction || "asc";
+        var register;
 
         if (!query.where) {
             return result;
         }
 
-        for (let index = 0; index < this.#cache.length; index++) {
-            const register = this.#cache[index];
+        if (query.where.parentName) {
+            let parentName = query.where.parentName;
+            if (parentName === "") {
+                parentName = "-index";
+            }
+            if (!this.#indexByParentName[parentName]) {
+                return result;
+            }
+            searchOnIndex = this.#indexByParentName[parentName];
+            length = searchOnIndex.length;
+        }
+
+        for (let index = 0; index < length; index++) {
+            if (searchOnIndex) {
+                register = this.#cache[searchOnIndex[index]];
+            } else {
+                register = this.#cache[index];
+            }
             if (this.#where(register, query.where)) {
                 counter++;
                 if (counter > offset) {
@@ -110,6 +151,8 @@ class Store {
     }
 
     insert(row) {
+        var parentName = "-index";
+        var index = this.#cache.length;
         if (!row.name) {
             let counter = this.#cache.length;
             while (this.openByName(counter.toString()).name) {
@@ -121,6 +164,15 @@ class Store {
         row.created = page.currentDate();
         row.updated = row.created;
         this.#cache.push(row);
+
+        if (row.parentName && row.parentName !== "") {
+            parentName = row.parentName;
+        }
+        if (!this.#indexByParentName[parentName]) {
+            this.#indexByParentName[parentName] = [index];
+        } else {
+            this.#indexByParentName[parentName].push(index);
+        }
     }
 
     openByName(name) {
@@ -134,24 +186,41 @@ class Store {
     }
 
     removeByName(name) {
-        var found = false;
-        do {
-            found = false;
-            for (let index = 0; index < this.#cache.length; index++) {
-                const register = this.#cache[index];
-                if (register.name && register.parentName && register.parentName === name) {
-                    this.removeByName(register.name);
-                    found = true;
-                }
-            }
-        } while (found);
-
+        this.#removeIndexList = [];
         for (let index = 0; index < this.#cache.length; index++) {
             const register = this.#cache[index];
             if (register.name && register.name === name) {
-                this.#cache.splice(index, 1);
-                return;
+                this.#appendToRemoveIndexList(index);
+                break;
             }
+        }
+        this.#removeIndexList.sort((a, b) => {
+            if (a > b) {
+                return -1;
+            } else if (a == b) {
+                return 0;
+            } else {
+                return -1;
+            }
+        });
+
+        for (let i = 0; i < this.#removeIndexList.length; i++) {
+            const indexToRemove = this.#removeIndexList[i];
+            this.#cache.splice(indexToRemove, 1);
+        }
+        this.#generateIndex();
+    }
+
+    #appendToRemoveIndexList(index) {
+        this.#removeIndexList.push(index);
+        var row = this.#cache[index];
+        if (!this.#indexByParentName[row.name]) {
+            return;
+        }
+
+        const list = this.#indexByParentName[row.name];
+        for (let i = 0; i < list.length; i++) {
+            this.#appendToRemoveIndexList(list[i]);
         }
     }
 

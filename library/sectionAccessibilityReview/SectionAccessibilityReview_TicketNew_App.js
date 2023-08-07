@@ -14,7 +14,6 @@ class SectionAccessibilityReview_TicketNew_App extends ApplicationHelper {
         form.actions.save = () => {
             var data = form.data;
             data.parentName = application.parent.name;
-            data.name = application.parent.name + "_-_" + data.name;
             data.type = "accessibilityReview";
             store.domainContent.insert(data);
             application.parent.refresh();
