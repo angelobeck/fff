@@ -34,6 +34,16 @@ data.controls = [
         children: [
             {
                 type: "button",
+                label: { pt: "Recuperar backup", en: "Recover backup" },
+                action: "recoverbackup"
+            },
+            {
+                type: "button",
+                label: { pt: "Remover backup", en: "Remove backup" },
+                action: "removebackup"
+            },
+            {
+                type: "button",
                 label: { pt: "Exportar dados .js", en: "Export .js data file" },
                 action: "exportData"
             },

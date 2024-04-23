@@ -34,15 +34,8 @@ p { font-size: 16px; }
 .azul .color { color:#00f; }
 .ciano .color { color:#0cf; }
 .verde .color { color:#0c0; }
-.ocre .color { color:#cc0; }
+.ocre .color { color:#aa0; }
 .laranja .color { color:#f80; }
 .vermelho .color { color:#c00; }
 .magenta .cor { color:#f0f; }
-.cinza .color { color:#888; }
-
-.left { margin-left:0; margin-right:auto; }
-.center { margin-left:auto; margin-right:auto; }
-.right { margin-left:auto; margin-right:0; }
-.top { margin-top: 0; margin-bottom:auto; }
-.middle { margin-top:auto; margin-bottom:auto; }
-.bottom { margin-top:auto; margin-bottom:0; }
+.cinza .c

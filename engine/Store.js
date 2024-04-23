@@ -1,11 +1,18 @@
 
 class Store {
     #cache = [];
+<<<<<<< HEAD
+#name = "";
+=======
     #indexByParentName = false;
     #removeIndexList;
+>>>>>>> c6b29a415d6d57773f51006edaa384bc839098e6
 
-    constructor(data) {
+    constructor(data, name) {
         this.#cache = data;
+<<<<<<< HEAD
+this.#name = name;
+=======
         this.#generateIndex();
     }
 
@@ -26,6 +33,7 @@ class Store {
                 this.#indexByParentName[parentName].push(index);
             }
         }
+>>>>>>> c6b29a415d6d57773f51006edaa384bc839098e6
     }
 
     query(query) {
@@ -145,6 +153,7 @@ class Store {
             const current = this.#cache[index];
             if (current.name && current.name === name) {
                 this.#cache[index] = register;
+                this.updateCache();
                 return;
             }
         }
@@ -164,6 +173,9 @@ class Store {
         row.created = page.currentDate();
         row.updated = row.created;
         this.#cache.push(row);
+<<<<<<< HEAD
+        this.updateCache();
+=======
 
         if (row.parentName && row.parentName !== "") {
             parentName = row.parentName;
@@ -173,6 +185,7 @@ class Store {
         } else {
             this.#indexByParentName[parentName].push(index);
         }
+>>>>>>> c6b29a415d6d57773f51006edaa384bc839098e6
     }
 
     openByName(name) {
@@ -186,7 +199,27 @@ class Store {
     }
 
     removeByName(name) {
+<<<<<<< HEAD
+this._removeByName(name);
+this.updateCache();
+    }
+
+    _removeByName(name) {
+        var found = false;
+        do {
+            for (let index = 0; index < this.#cache.length; index++) {
+                const register = this.#cache[index];
+                if (register.name && register.parentName && register.parentName === name) {
+                    this._removeByName(register.name);
+                    found = true;
+                    break;
+                }
+            }
+        } while (found);
+
+=======
         this.#removeIndexList = [];
+>>>>>>> c6b29a415d6d57773f51006edaa384bc839098e6
         for (let index = 0; index < this.#cache.length; index++) {
             const register = this.#cache[index];
             if (register.name && register.name === name) {
@@ -252,5 +285,10 @@ class Store {
         }
     }
 
+updateCache() {
+var name = "fff_store_" + this.#name;
+var serialized = JSON.stringify(this.#cache);
+localStorage.setItem(name, serialized);
+}
 
 }

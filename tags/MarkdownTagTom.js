@@ -3,17 +3,21 @@ class MarkdownTagTom extends Module {
     static closeTag = false;
 
     template = `
-<span if:false={displaySelect} tabindex="0" role="button" onkeydown={showSelect}>
-"Tom: "
+<span if:false={displaySelect} tabindex="0" role="button" onkeydown={showSelect} onclick={showSelect}>
+Tom: 
 <span class="color">{currentTom}</span>
 </span>
 
-<label if:true={displaySelect}>
-"Tom: "
-<select for:each={options} for:item={option} onchange={handleChange} onblur={hideSelect} onkeydown={switchSelect}>
+<span if:true={displaySelect}>
+<label>
+Tom: 
+<select for:each={options} for:item={option} onchange={handleChange}>
 <option value={option.value} selected={option.selected}>{option.value}</option>
 </select>
 </label>
+<button onclick={choose}>Escolher</button>
+<button onclick={switchCipherVisibility}>{labelTomHidden}</button>
+</div>
 `;
 
     tons = [
@@ -50,28 +54,24 @@ class MarkdownTagTom extends Module {
         });
     }
 
+switchCipherVisibility() {
+        page.globals.tomHidden = !page.globals.tomHidden;
+this.displaySelect = false;
+        page.rootNode.refresh();
+}
+
+get labelTomHidden() {
+return page.globals.tomHidden ? "Exibir cifras" : "Ocultar cifras";
+}
+
+choose() {
+this.displaySelect = false;
+        page.rootNode.refresh();
+}
+
     handleChange(event) {
         var value = event.currentTarget.value;
         page.globals.tomCurrent = value;
         page.globals.tomOriginal = this.value;
         let tomCurrentIndex = this.tons.indexOf(value);
-        let tomOriginalIndex = this.tons.indexOf(this.value);
-        page.globals.tomOffset = tomCurrentIndex - tomOriginalIndex;
-        page.modules.layout.refresh();
-    }
-
-    switchSelect(event) {
-        if (event.key === "Enter") {
-            this.displaySelect = false;
-        }
-    }
-
-    showSelect() {
-        this.displaySelect = true;
-    }
-
-    hideSelect() {
-        this.displaySelect = false;
-    }
-
-}
+        l

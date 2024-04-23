@@ -12,7 +12,7 @@ class ModuleList extends Module {
     </div>`;
 
     get iterableList() {
-        var children = application.children;
+        var children = application.sortedChildren();
         if (children.length === 0) {
             return [];
         }

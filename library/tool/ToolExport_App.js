@@ -9,6 +9,19 @@ class ToolExport_App extends ApplicationHelper {
     static dispatch() {
 
         var form = new DreamForm();
+
+        form.actions.recoverbackup = () => {
+data.domainContent = JSON.parse(localStorage.getItem("fff_store_domainContent"));
+    store.domainContent = new Store(data.domainContent, "domainContent");
+root.refresh();
+page.rootNode.refresh();
+            page.navigateTo();
+}
+
+        form.actions.clearbackup = () => {
+            localStorage.removeItem("fff_store_domainContent");
+        }
+
         form.actions.exportData = () => {
             const value = "var data = data || {}\r\ndata.domainContent = " + page.serializeJS(data.domainContent) + ";\r\n";
             let blob = new Blob([value], { type: 'text/javascript;charset=utf-8;' });

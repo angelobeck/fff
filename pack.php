@@ -4,7 +4,6 @@ error_reporting(E_ALL);
 $buffer;
 $fileContent;
 $importPaths = [
-"data",
 "engine",
 "filters",
 "library",
@@ -44,17 +43,20 @@ $template = '<!DOCTYPE html>
 </head>
     <body>
         <div id="layout"></div>
-        <div id="message" aria-live=""polite"></div>
+        <div id="message" aria-live="polite"></div>
     </body>
 <script>
 '
+. file_get_contents("data/controls.js")
+. file_get_contents("data/setup.js")
 . $buffer
+. file_get_contents("componentsList.js")
 . file_get_contents("setup.js")
 . '
 </script>
 <script src="domainContent.js"></script>
 <script>
-window.addEventListener("load", setup);
+window.addEventListener("load", startup);
 </script>
 </html>';
 

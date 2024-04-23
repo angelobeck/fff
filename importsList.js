@@ -2,6 +2,7 @@
 var importsList = [
     "data/controls.js",
     "data/domainContent.js",
+    "data/setup.js",
     "engine/node/Node.js",
     "engine/node/NodeComponent.js",
     "engine/node/NodeDinamicProperty.js",
@@ -106,8 +107,4 @@ var importsList = [
     "tags/MarkdownTagCard.js",
     "tags/MarkdownTagGrid.js",
     "tags/MarkdownTagStrophe.js",
-    "tags/MarkdownTagTom.js",
-    "tags/Text.js",
-    "componentsList.js",
-    "setup.js"
-];
+    "tags/MarkdownTag

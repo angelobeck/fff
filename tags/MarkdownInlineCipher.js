@@ -1,6 +1,6 @@
 
 class MarkdownInlineCipher extends Module {
-    template = `<span class="up color"><span>{cipher}</span></span>`;
+    template = `<span if:true={displayCipher} class="up color"><span>{cipher}</span></span>`;
 
     tonsSharp = [
         "C",
@@ -34,22 +34,30 @@ class MarkdownInlineCipher extends Module {
 
     tons = [
         "C",
-        "C#",
+        "C\u266F",
         "D",
-        "Eb",
+        "E\u266D",
         "E",
         "F",
-        "F#",
+        "F\u266F",
         "G",
-        "G#",
+        "G\u266F",
         "A",
-        "Bb",
+        "B\u266D",
         "B"
     ];
 
+    get displayCipher() {
+        return !page.globals.tomHidden; 
+    }
+
     get cipher() {
-        if (!page.globals.tomOffset || page.globals.tomOffset === 0) {
-            return this.value;
+        if(this.value === "*") {
+            return `\u2605`;
+        }
+var offset = 0;
+        if (page.globals.tomOffset) {
+            offset = page.globals.tomOffset;
         }
         var match = /^([A-G][#b]?)(.*)$/.exec(this.value);
         if (!match) {
@@ -62,12 +70,4 @@ class MarkdownInlineCipher extends Module {
                 return this.value;
             }
         }
-        index += page.globals.tomOffset;
-        if (index >= 12) {
-            index -= 12;
-        } else if (index < 0) {
-            index += 12;
-        }
-        return this.tons[index] + match[2];
-    }
-}
+        index += offs

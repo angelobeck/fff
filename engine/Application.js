@@ -87,4 +87,43 @@ class Application {
         this.#helper.dispatch(page);
     }
 
+sortedChildren(sortBy = "name", sortDirection = "asc") {
+var children = this.children;
+var toSort = {};
+var unsorted = [];
+for(let i = 0; i < children.length; i++) {
+let child = children[i];
+if(!child[sortBy]) {
+	unsorted.push(child);
+}else{
+	let index = child[sortBy].toString();
+	if(index === "" || index === "0") {
+		unsorted.push(child);
+	}else{
+		if(toSort[index]) {
+			toSort[index].push(child);
+		}else{
+			toSort[index] = [child];
+		}
+	}
+}
+}
+var keys = Object.keys(toSort);
+keys.sort();
+if(sortDirection === "desc") {
+keys.reverse();
+}
+
+var result = [];
+for(let i = 0; i < keys.length; i++) {
+let key = keys[i];
+let items = toSort[key];
+while(items.length > 0) {
+result.push(items.shift());
+}
+}
+
+return result.concat(unsorted);
+}
+
 }
